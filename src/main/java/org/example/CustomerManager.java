@@ -5,12 +5,24 @@ import java.util.List;
 
 public class CustomerManager {
     public static List<Customer> customer;
+
     public CustomerManager(){
         customer=new ArrayList<Customer>();
     }
+
     public void addCustomer(Customer currentCustomer) {
         customer.add(currentCustomer);
     }
 
+    public Customer getCustomerById(Integer customerId) {
+        {
+            for (Customer c : customer) {
+                if (c.getCustomerId() == customerId) {
+                    return c;
+                }
+            }
+            throw new IllegalArgumentException("Chef with ID " + customerId + " not found.");
+        }
 
+    }
 }
