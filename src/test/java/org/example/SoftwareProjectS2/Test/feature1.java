@@ -8,6 +8,7 @@ import org.example.CustomerManager;
 import static org.junit.Assert.assertEquals;
 
 public class feature1 {
+    //setup*****
     Customer currentCustomer=new Customer(100,"mohyee","12345","Vegetarian","alllwlwl");;
     CustomerManager customerManager=new CustomerManager();
 

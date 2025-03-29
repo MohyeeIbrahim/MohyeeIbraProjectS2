@@ -17,7 +17,9 @@ public class Customer {
         this.dietaryPreference=dietaryPreference;
         this.allergies=allergies;
     }
-
+public int getCustomerId() {
+        return customerId;
+}
     public void setDietaryPreference(String dietaryPreference) {
         if (dietaryPreference == null||dietaryPreference.trim().isEmpty()||!dietaryPreference.matches("[a-zA-Z]+")) {
             System.out.println("Error: Please enter valid dietary preferences");
