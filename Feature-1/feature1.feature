@@ -23,3 +23,4 @@ Feature: Input Dietary Preferences and Allergies
     And  change allergies from "peanut" to "soy"
     Then allergies should be updated to "soy"
 
+
