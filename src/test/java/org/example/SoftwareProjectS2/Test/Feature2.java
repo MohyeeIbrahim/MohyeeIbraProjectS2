@@ -14,24 +14,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Feature2 {
-
+    private Chef chef;
     private ChefManager chefManager;
     private CustomerManager customerManager;
     private Customer customer;
     private String mealPlan;
-
-
-
-
-
     //1st scenario  -- |>>>>
 
     @Given("the chef is logged in")
     public void the_chef_is_logged_in() {
+        chef=new Chef(1, "Chef John", "1234");
         chefManager=new ChefManager();
-        chefManager.addChef(new Chef(1, "Chef John", "1234"));
-
-        chefManager.loginChef(1);
+        chefManager.addChef(chef);
+        assertTrue(chefManager.loginChef(chef.getChefId()));
     }
 
     @Given("the customer {int} has provided dietary preferences and allergies")
@@ -46,14 +41,12 @@ public class Feature2 {
         customer = customerManager.getCustomerById(customerId);
     }
 
-
-
     @Then("the system should display {string}")
     public void the_system_should_display(String string) {
         // Write code here that turns the phrase above into concrete actions
         assertEquals("Vegetarian", customer.getDietaryPreference());
         assertEquals("None", customer.getAllergies());
-         System.out.println("Dietary Preference: " + customer.getDietaryPreference() + ", Allergies: " + customer.getAllergies());
+        System.out.println("Dietary Preference: " + customer.getDietaryPreference() + ", Allergies: " + customer.getAllergies());
     }
 
 
@@ -71,8 +64,7 @@ public class Feature2 {
         chefManager = new ChefManager();
         Chef chef = new Chef(2, "Chef ibra","8888");
         chefManager.addChef(chef);
-        chefManager.loginChef(2);
-        System.out.println("Chef has viewed dietary preferences for customer " + customer.getCustomerId());
+        assertTrue(chefManager.loginChef(2));
     }
 
     @When("the chef creates a meal plan for customer {int}")
@@ -89,15 +81,11 @@ public class Feature2 {
     @Then("the system should generate a meal plan excluding {string}")
     public void the_system_should_generate_a_meal_plan_excluding(String allergen) {
         assertTrue(mealPlan.contains("Excluded Allergens: " + allergen));
-        System.out.println("Meal plan excludes " + allergen);
     }
 
     @Then("the meal plan should include {string} meals")
     public void the_meal_plan_should_include_meals(String dietaryPreference) {
         assertTrue(mealPlan.contains("Dietary Preference: " + dietaryPreference));
-        System.out.println("Meal plan includes " + dietaryPreference + " meals");
     }
-
 //2nd scenario
-
 }

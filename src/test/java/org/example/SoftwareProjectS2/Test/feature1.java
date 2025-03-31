@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.example.Customer;
 import org.example.CustomerManager;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class feature1 {
     //setup*****
@@ -16,6 +17,7 @@ public class feature1 {
     public void theCustomerWithIdIsLoggedIn(Integer customerId) {
         customerManager=new CustomerManager();
         customerManager.addCustomer(currentCustomer);
+        assertTrue(customerManager.loginCustomer(customerId));
     }
     @When("the customer enter set_preferences {string}")
     public void theCustomerEnterSetPreferences(String dietaryPreference) {

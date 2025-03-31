@@ -14,14 +14,15 @@ public class ChefManager {
     }
 
     // Log in a chef by their ID
-    public void loginChef(int chefId) {
+    public boolean loginChef(int chefId) {
         for (Chef chef : chefs) {
             if (chef.getChefId() == chefId) {
                 currentChef = chef;
-                return;
+                return true;
             }
         }
-        throw new IllegalArgumentException("Chef with ID " + chefId + " not found.");
+        System.out.println("Chef with ID " + chefId + " not found.");
+        return false;
     }
 
     // Get the currently logged-in chef
