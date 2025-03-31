@@ -40,7 +40,7 @@ public class Feature3 {
     @Then("the system should display a list of customer past meal orders")
     public void the_system_should_display_a_list_of_customer_past_meal_orders() {
         String expectedOutput = """
-            Your past orders:
+            Customer past orders:
             1. [%s] Quinoa Salad
             2. [%s] Vegan Burger, Sweet Potato Fries
             """.formatted(

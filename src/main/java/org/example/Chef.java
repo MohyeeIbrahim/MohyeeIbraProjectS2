@@ -10,7 +10,6 @@ public class Chef {
           chefId=i;
           chefName=chefJohn;
           this.password=password;
-
     }
 
     public Chef() {

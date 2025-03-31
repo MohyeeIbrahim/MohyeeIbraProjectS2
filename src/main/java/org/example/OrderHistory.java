@@ -14,7 +14,7 @@ public class OrderHistory {
             return "You have no past orders";
         }
 
-        StringBuilder sb = new StringBuilder("Your past orders:\n");
+        StringBuilder sb = new StringBuilder("Customer past orders:\n");
         int orderNumber = 1;
 
         // Sort by date newest first
