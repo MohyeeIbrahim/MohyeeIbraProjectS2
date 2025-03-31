@@ -4,6 +4,7 @@ public class ChefManager {
     private List<Chef> chefs; // List to store multiple chefs
     private Chef currentChef; // Currently logged-in chef
 
+
     public ChefManager() {
         chefs = new ArrayList<Chef>();
     }
@@ -42,4 +43,7 @@ public class ChefManager {
         }
         throw new IllegalArgumentException("Chef with ID " + chefId + " not found.");
     }
+
+
+
 }

@@ -13,10 +13,11 @@ Feature: View Customer Dietary Preferences
     Then the system should display "Dietary Preference: Vigterian, Allergies:"
 
 
-#  Scenario: Viewing dietary preferences when no data is available
-#    Given the customer "100" has not provided any dietary preferences
+# Scenario: Viewing dietary preferences when no data is available
+#    Given the customer 100 has not provided any dietary preferences
 #    When the chef enters view_preferences
 #    Then the system should display "No dietary preferences available for this customer"
+
   Scenario: Customizing meals based on dietary preferences
     Given the customer 100 has dietary preferences "Vegetarian" and allergies "Gluten"
     And the chef has viewed the customer's dietary preferences
