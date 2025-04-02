@@ -21,7 +21,6 @@ public class Order {
     public LocalDate getDate() {
         return date;
     }
-
     public List<Meal> getMeals() {
         return new ArrayList<Meal>(meals);
     }
@@ -33,7 +32,6 @@ public class Order {
         for (Meal meal : meals) {
             mealNames.add(meal.getName());
         }
-
         sb.append(String.join(", ", mealNames));
         return sb.toString();
     }

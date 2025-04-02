@@ -49,7 +49,6 @@ public class Feature2 {
         System.out.println("Dietary Preference: " + customer.getDietaryPreference() + ", Allergies: " + customer.getAllergies());
     }
 
-
     //2ndscenario  -- |>>>>
 
     @Given("the customer {int} has dietary preferences {string} and allergies {string}")
@@ -72,7 +71,6 @@ public class Feature2 {
         // Simulate meal plan creation based on customer preferences and allergies
         String dietaryPreference = customer.getDietaryPreference();
         String allergies = customer.getAllergies();
-
         mealPlan = "Meal Plan for Customer " + customerId + ": " +
                 "Dietary Preference: " + dietaryPreference + ", " +
                 "Excluded Allergens: " + allergies;
