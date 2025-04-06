@@ -6,9 +6,9 @@ public class Chef {
     String password;
 
 
-    public Chef(int i, String chefJohn,String password) {
-          chefId=i;
-          chefName=chefJohn;
+    public Chef(int chefId, String chefName,String password) {
+          this.chefId=chefId;
+          this.chefName=chefName;
           this.password=password;
     }
 
