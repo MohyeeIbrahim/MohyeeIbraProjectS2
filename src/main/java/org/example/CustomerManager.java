@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CustomerManager {
-    public static List<Customer> customer;
+    public  List<Customer> customer;
     private Customer currentCustomer;
 
     public CustomerManager(){
@@ -23,7 +23,7 @@ public class CustomerManager {
                     return c;
                 }
             }
-            throw new IllegalArgumentException("Chef with ID " + customerId + " not found.");
+            throw new IllegalArgumentException("Customer with ID " + customerId + " not found.");
         }
     }
     public boolean loginCustomer(int customerId) {
