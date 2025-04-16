@@ -28,8 +28,4 @@ public class CustomMealRequest {
     public String getStatus() {
         return status;
     }
-
-
-
-
 }

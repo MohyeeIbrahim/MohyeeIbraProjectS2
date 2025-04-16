@@ -5,7 +5,6 @@ public class Chef {
     String chefName;
     String password;
 
-
     public Chef(int chefId, String chefName,String password) {
           this.chefId=chefId;
           this.chefName=chefName;

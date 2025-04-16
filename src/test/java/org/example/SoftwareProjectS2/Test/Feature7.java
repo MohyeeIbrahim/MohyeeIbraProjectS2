@@ -31,10 +31,7 @@ public class Feature7 {
         validator = new IngredientValidator();
         selectedIngredients = new ArrayList<>();
         CustomerManager customerManager = new CustomerManager();
-
-
 }
-
     @Given("a customer has selected a valid combination of ingredients {string}")
     public void select_valid_ingredients(String ingredients) {
 
