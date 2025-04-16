@@ -25,7 +25,6 @@ public class ChefManager {
         System.out.println("Chef with ID " + chefId + " not found.");
         return false;
     }
-
     // Get the currently logged-in chef
     public Chef getCurrentChef() {
         if (currentChef == null) {
@@ -43,7 +42,4 @@ public class ChefManager {
         }
         throw new IllegalArgumentException("Chef with ID " + chefId + " not found.");
     }
-
-
-
 }
