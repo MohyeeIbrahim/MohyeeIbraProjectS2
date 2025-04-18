@@ -42,4 +42,7 @@ public class ChefManager {
         }
         throw new IllegalArgumentException("Chef with ID " + chefId + " not found.");
     }
+    public List<Chef> getAllChefs() {
+        return chefs;
+    }
 }
