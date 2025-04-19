@@ -9,14 +9,15 @@ public class Chef {
     String password;
     List<String> expertise;
     Integer assignedTasks;
+    List<String> notifications;
 
     public Chef(int chefId, String chefName,String password) {
           this.chefId=chefId;
           this.chefName=chefName;
           this.password=password;
-        expertise=new ArrayList<String>();
-        assignedTasks=0;
-
+          expertise=new ArrayList<String>();
+          assignedTasks=0;
+          notifications=new ArrayList<String>();
     }
     public Chef() {
     }
@@ -42,4 +43,20 @@ public class Chef {
     public void setTaskCount(Integer taskCount) {
         this.assignedTasks=taskCount;
     }
+    public void addNotification(String message) {
+        notifications.add(message);
+    }
+
+    public List<String> getNotifications() {
+        return notifications;
+    }
+
+    public boolean hasNotification(String message) {
+        return notifications.contains(message);
+    }
+
+    public boolean hasNoNotifications() {
+        return notifications.isEmpty();
+    }
+
 }

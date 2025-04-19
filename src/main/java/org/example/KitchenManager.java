@@ -21,6 +21,7 @@ public class KitchenManager {
         }
         if (suitableChef != null) {
             suitableChef.addTask(); // Increase task count
+            suitableChef.addNotification("New task assigned: " + taskType);
             System.out.println("Assigned " + taskType + " task to Chef " + suitableChef.getChefName());
         } else {
             System.out.println("No suitable chef available" );
