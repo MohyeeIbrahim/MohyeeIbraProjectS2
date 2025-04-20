@@ -1,0 +1,53 @@
+package org.example;
+import java.util.HashMap;
+import java.util.Map;
+public class InventoryManager {
+    private Map<String, Integer> stock = new HashMap<>();
+    private Map<String, Integer> thresholds = new HashMap<>();
+
+    public void addIngredient(String name, int quantity) {
+        stock.put(name, stock.getOrDefault(name, 0) + quantity);
+        thresholds.putIfAbsent(name, 5);
+    }
+
+    public void addIngredient(String name, int quantity, int threshold) {
+        stock.put(name, stock.getOrDefault(name, 0) + quantity);
+        thresholds.put(name, threshold);
+    }
+
+    public int getIngredientQuantity(String name) {
+        return stock.getOrDefault(name, 0);
+    }
+
+    public boolean isLowStock(String ingredient) {
+        int stockThreshold = thresholds.getOrDefault(ingredient, 5);
+        int currentStock = stock.getOrDefault(ingredient, 0);
+        boolean isLow = currentStock < stockThreshold;
+        return isLow;
+    }
+    public String getStockStatus(String ingredient) {
+        int quantity = stock.getOrDefault(ingredient, 0);
+        int threshold = thresholds.getOrDefault(ingredient, 5);
+        return quantity < threshold ? "Low Stock" : "Sufficient";
+    }
+
+    public Map<String, Integer> getAllStock() {
+        return stock;
+    }
+
+    public Map<String, String> getStockOverview() {
+        Map<String, String> statusMap = new HashMap<>();
+        for (String ingredient : stock.keySet()) {
+            statusMap.put(ingredient, getStockStatus(ingredient));
+        }
+        return statusMap;
+    }
+
+    public void restockIngredient(String name, int amount) {
+        stock.put(name, stock.getOrDefault(name, 0) + amount);
+    }
+
+    public void setThreshold(String name, int threshold) {
+        thresholds.put(name, threshold);
+    }
+}
