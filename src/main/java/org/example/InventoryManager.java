@@ -1,5 +1,7 @@
 package org.example;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 public class InventoryManager {
     private Map<String, Integer> stock = new HashMap<>();
@@ -49,5 +51,15 @@ public class InventoryManager {
 
     public void setThreshold(String name, int threshold) {
         thresholds.put(name, threshold);
+    }
+
+    public List<String> getRestockSuggestions() {
+        List<String> suggestions = new ArrayList<>();
+        for (String ingredient : stock.keySet()) {
+            if (isLowStock(ingredient)) {
+                suggestions.add(ingredient);
+            }
+        }
+        return suggestions;
     }
 }
