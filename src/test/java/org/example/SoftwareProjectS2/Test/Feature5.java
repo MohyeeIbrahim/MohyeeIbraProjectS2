@@ -39,7 +39,7 @@ public class Feature5 {
     @When("a new order is placed by customer {int}")
     public void a_new_order_is_placed_by_customer(Integer customerId) {
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(1, "Burger", true));
+        meals.add(new Meal(1, "Burger",13 ,true));
         order = new Order(101, LocalDate.now(), meals);
         customer.addOrder(order);
     }
@@ -68,7 +68,7 @@ public class Feature5 {
     @Given("customer order exist in the order list")
     public void customer_order_exist_in_the_order_list() {
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(1, "Burger", true));
+        meals.add(new Meal(1, "Burger",10,true));
         customer.addOrder(new Order(101, LocalDate.now(), meals));
         customerManager.addCustomer(customer);
     }

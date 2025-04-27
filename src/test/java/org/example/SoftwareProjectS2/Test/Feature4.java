@@ -45,8 +45,8 @@ public class Feature4 {
     public void the_customer_has_placed_meal_orders_in_the_past(Integer customerId) {
         Customer customer = new Customer(customerId, "Customer" + customerId, "pass", "None", "None");
         List<Meal> meals1 = List.of(
-                new Meal(101, "Vegan Burger", true),
-                new Meal(102, "Sweet Potato Fries", true)
+                new Meal(101, "Vegan Burger", 9,true),
+                new Meal(102, "Sweet Potato Fries", 5,true)
         );
         customer.addOrder(new Order(1, LocalDate.now().minusDays(1), meals1));
         customerManager.addCustomer(customer);

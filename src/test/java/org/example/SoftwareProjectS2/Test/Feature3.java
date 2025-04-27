@@ -22,11 +22,11 @@ public class Feature3 {
         customer=new Customer(100,"ali","ssss","Vegan","None");
         customer.addOrder(new Order(1, LocalDate.now().minusDays(3),
                 List.of(
-                        new Meal(1, "Vegan Burger",true),
-                        new Meal(2, "Sweet Potato Fries",true)
+                        new Meal(1, "Vegan Burger",15,true),
+                        new Meal(2, "Sweet Potato Fries",5,true)
                 )));
         customer.addOrder(new Order(2, LocalDate.now().minusDays(1),
-                List.of(new Meal(3, "Quinoa Salad",true))));
+                List.of(new Meal(3, "Quinoa Salad",20,true))));
         customerManager=new CustomerManager();
         customerManager.addCustomer(customer);
         assertTrue(customerManager.loginCustomer(customer.getCustomerId()));
