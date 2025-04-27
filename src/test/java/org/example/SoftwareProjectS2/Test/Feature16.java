@@ -1,6 +1,8 @@
 package org.example.SoftwareProjectS2.Test;
 
 import io.cucumber.java.Before;
+
+import static org.example.InvoicePrinter.generateInvoiceSummary;
 import static org.junit.Assert.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -28,9 +30,13 @@ public class Feature16 {
         customerManager = new CustomerManager();
         customer = new Customer(1, "John Doe", "password123", "Vegan", "Nuts");
         customerManager.addCustomer(customer);
-        meal1 = new Meal(1, "Vegan Burger", true);
-        meal2 = new Meal(2, "Vegan Salad", true);
+
+        // Add prices for the meals
+        meal1 = new Meal(1, "Vegan Burger", 9.99, true);
+        meal2 = new Meal(2, "Vegan Salad", 7.49, true);
+
         List<Meal> meals = Arrays.asList(meal1, meal2);
+
         order = new Order(1001, LocalDate.now(), meals);
         customer.addOrder(order);
     }
@@ -76,8 +82,8 @@ public class Feature16 {
         customerManager = new CustomerManager();
         customer = new Customer(2, "Alice", "password456", "Vegetarian", "Gluten");
 
-        Meal meal1 = new Meal(3, "Vegetarian Pizza", true);
-        Meal meal2 = new Meal(4, "Gluten-Free Salad", true);
+        Meal meal1 = new Meal(3, "Vegetarian Pizza",10, true);
+        Meal meal2 = new Meal(4, "Gluten-Free Salad",15, true);
         List<Meal> meals = Arrays.asList(meal1, meal2);
 
         pastOrder = new Order(2001, LocalDate.now().minusDays(10), meals); // Order from 10 days ago
@@ -112,19 +118,17 @@ public class Feature16 {
     //3rd scenario
     @Given("I am on the checkout page with items in my cart")
     public void i_am_on_the_checkout_page_with_items_in_my_cart() {
-        // Setup: Customer has items in the shopping cart
         customerManager = new CustomerManager();
         customer = new Customer(3, "Bob", "mypassword", "Normal", "None");
 
-        Meal meal1 = new Meal(5, "Cheeseburger", true);
-        Meal meal2 = new Meal(6, "Fries", true);
+        Meal meal1 = new Meal(5, "Cheeseburger", 8.99, true);
+        Meal meal2 = new Meal(6, "Fries", 3.49, true);
 
         customer.getCart().addItem(meal1);
         customer.getCart().addItem(meal2);
 
         customerManager.addCustomer(customer);
 
-        // Get the cart
         cart = customer.getCart();
 
         assertFalse(cart.getItems().isEmpty());
@@ -132,25 +136,7 @@ public class Feature16 {
 
     @When("I review the final order")
     public void i_review_the_final_order() {
-        // Assume each meal costs $10 for simplicity
-        double mealPrice = 10.0;
-        int itemCount = cart.getItemCount();
-        double subtotal = itemCount * mealPrice;
-        double taxes = subtotal * taxRate;
-        double total = subtotal + taxes;
-
-        // Generate invoice summary
-        StringBuilder invoice = new StringBuilder();
-        invoice.append("Invoice Summary:\n");
-        invoice.append("Items:\n");
-        for (Meal meal : cart.getItems()) {
-            invoice.append("- ").append(meal.getName()).append(": $").append(mealPrice).append("\n");
-        }
-        invoice.append("Subtotal: $").append(subtotal).append("\n");
-        invoice.append("Taxes (10%): $").append(String.format("%.2f", taxes)).append("\n");
-        invoice.append("Total Payable: $").append(String.format("%.2f", total)).append("\n");
-
-        invoiceSummary = invoice.toString();
+        invoiceSummary = generateInvoiceSummary(cart.getItems(), 0.10); // Tax rate 10%
     }
 
     @Then("the system should print an invoice summary including items, taxes, and total payable amount")
