@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class Customer {
     int customerId;
-    String customerName;
+    private String customerName;
     String password;
     String  dietaryPreference;
     String  allergies;
@@ -25,6 +25,10 @@ public class Customer {
 public int getCustomerId() {
         return customerId;
 }
+    public String getCustomerName() {
+        return customerName;
+    }
+
     public void setDietaryPreference(String dietaryPreference) {
         if (dietaryPreference == null||dietaryPreference.trim().isEmpty()||!dietaryPreference.matches("[a-zA-Z]+")) {
             System.out.println("Error: Please enter valid dietary preferences");
@@ -64,7 +68,9 @@ public int getCustomerId() {
     }
 
     public ShoppingCart getCart() {
+
         return this.cart;
     }
+
 
 }
