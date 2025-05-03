@@ -27,4 +27,3 @@ public class InvoicePrinter {
         return invoice.toString();
     }
 }
-
