@@ -7,7 +7,6 @@ import java.util.Optional;
 public class CustomerManager {
     public  List<Customer> customer;
     private Customer currentCustomer;
-
     public CustomerManager(){
         customer=new ArrayList<Customer>();
     }

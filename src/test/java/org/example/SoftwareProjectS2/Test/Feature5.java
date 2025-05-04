@@ -5,7 +5,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.*;
-import org.junit.Assert;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

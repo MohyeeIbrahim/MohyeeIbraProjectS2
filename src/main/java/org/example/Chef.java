@@ -19,8 +19,7 @@ public class Chef {
           assignedTasks=0;
           notifications=new ArrayList<String>();
     }
-    public Chef() {
-    }
+
     public int getChefId() {
     return chefId;
     }

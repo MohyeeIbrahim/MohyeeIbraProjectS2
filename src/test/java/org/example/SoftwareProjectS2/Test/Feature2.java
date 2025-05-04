@@ -46,7 +46,6 @@ public class Feature2 {
         // Write code here that turns the phrase above into concrete actions
         assertEquals("Vegetarian", customer.getDietaryPreference());
         assertEquals("None", customer.getAllergies());
-        System.out.println("Dietary Preference: " + customer.getDietaryPreference() + ", Allergies: " + customer.getAllergies());
     }
 
     //2ndscenario  -- |>>>>

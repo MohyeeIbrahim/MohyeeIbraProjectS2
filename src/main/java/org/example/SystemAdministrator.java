@@ -14,14 +14,18 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class SystemAdministrator {
-    private final CustomerManager customerManager;
+    private CustomerManager customerManager;
     private static final String REPORTS_DIR = "financial_reports";
-    private final FinancialReportService reportService;
+    private  FinancialReportService reportService;
 
     public SystemAdministrator(CustomerManager customerManager) {
         this.customerManager = customerManager;
-        this.reportService = new FinancialReportService();
+        this.reportService = new FinancialReportService(customerManager);
         createReportsDirectory();
+    }
+
+    public SystemAdministrator(FinancialReportService reportService) {
+        this.reportService=reportService;
     }
 
 
@@ -44,12 +48,10 @@ public class SystemAdministrator {
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
 
-            // Add report header
             document.add(new Paragraph("Financial Report - " + period)
                     .setFontSize(16)
                     .setBold());
 
-            // Add financial data
             document.add(new Paragraph(String.format("Total Revenue: $%,.2f", report.revenue))
                     .setFontSize(12));
 
@@ -70,14 +72,7 @@ public class SystemAdministrator {
         return customer.getFormattedOrderHistory();
 
     }
-//    public void writePdf(String filename, int month, int year, int report) throws IOException {
-//        PdfWriter writer = new PdfWriter(filename);
-//        PdfDocument pdf = new PdfDocument(writer);
-//        Document doc = new Document(pdf);
-//
-//        doc.add(new Paragraph(report.formatReport(month, year)));
-//        doc.close();
-//    }
+
 
 
 }

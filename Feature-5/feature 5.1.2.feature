@@ -11,6 +11,6 @@ Feature: As a system administrator,
 
   Scenario: Export a financial report to PDF
     Given a financial report for "April 2025" has been generated
-    When the administrator selects "Export as PDF" from the main menu
+    When the administrator selects Export as PDF from the main menu
     Then the system should generate a PDF file
     And the file should be named "Financial_Report_April_2025.pdf"
