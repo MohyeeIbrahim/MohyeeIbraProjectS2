@@ -43,15 +43,12 @@ public class Feature16 {
 
     @Given("I have successfully placed an order")
     public void  iHaveSuccessfullyPlacedAnOrder() {
-        // Verify the customer has an order in history
         assertFalse(customer.getOrderHistory().isEmpty());
     }
-
     @When("the order confirmation is completed")
     public void the_order_confirmation_is_completed() {
         assertNotNull(order);
     }
-
     @Then("the system should print an invoice showing the order details and total amount")
     public void the_system_should_print_an_invoice_showing_the_order_details_and_total_amount() {
         double mealPrice = 10.0;
@@ -66,15 +63,12 @@ public class Feature16 {
         }
         invoice.append("Total Amount: $").append(totalAmount).append("\n");
 
-        System.out.println(invoice.toString());
         assertTrue(invoice.toString().contains("Invoice for Customer"));
         assertTrue(invoice.toString().contains(meal1.getName()));
         assertTrue(invoice.toString().contains(meal2.getName()));
         assertTrue(invoice.toString().contains("Total Amount"));
     }
 //2nd scenario
-
-
 
     @Given("I have a history of past orders")
     public void i_have_a_history_of_past_orders() {
@@ -91,25 +85,20 @@ public class Feature16 {
         customer.addOrder(pastOrder);
         customerManager.addCustomer(customer);
 
-        // Make sure the customer has history
         assertFalse(customer.getOrderHistory().isEmpty());
     }
 
     @When("I request to view a past order invoice")
     public void i_request_to_view_a_past_order_invoice() {
-        // Retrieve the order history
         SystemAdministrator systemAdmin = new SystemAdministrator(customerManager);
 
         printedInvoice = systemAdmin.getCustomerOrderHistory(customer.getCustomerId());
-        assertNotNull(printedInvoice); // Make sure it's not null
+        assertNotNull(printedInvoice);
     }
 
     @Then("the system should print the requested invoice on the screen")
     public void the_system_should_print_the_requested_invoice_on_the_screen() {
-        // Print the invoice to console
-        System.out.println(printedInvoice);
 
-        // Assert that the printed invoice contains expected meal names
         assertTrue(printedInvoice.contains("Vegetarian Pizza"));
         assertTrue(printedInvoice.contains("Gluten-Free Salad"));
         assertTrue(printedInvoice.contains("Customer past orders"));
@@ -141,10 +130,6 @@ public class Feature16 {
 
     @Then("the system should print an invoice summary including items, taxes, and total payable amount")
     public void the_system_should_print_an_invoice_summary_including_items_taxes_and_total_payable_amount() {
-        // Print the invoice to console
-        System.out.println(invoiceSummary);
-
-        // Check important parts exist
         assertTrue(invoiceSummary.contains("Invoice Summary"));
         assertTrue(invoiceSummary.contains("Cheeseburger"));
         assertTrue(invoiceSummary.contains("Fries"));

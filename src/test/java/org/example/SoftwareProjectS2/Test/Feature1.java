@@ -22,7 +22,6 @@ public class Feature1 {
     @When("the customer enter set_preferences {string}")
     public void theCustomerEnterSetPreferences(String dietaryPreference) {
         currentCustomer.setDietaryPreference(dietaryPreference);
-        System.out.println(currentCustomer.getDietaryPreference());
     }
     @When("the customer enter set_allergies {string}")
     public void theCustomerEnterSetAllergies(String allergies) {
@@ -58,9 +57,7 @@ public void enter_customer_preferences() {
 
     @Then("preferences should be updated to {string}")
     public void preferences_should_be_updated_to(String newDietaryPreference) {
-
         assertEquals(newDietaryPreference,currentCustomer.getDietaryPreference());
-        System.out.println("Dietary Preference updated successfully to " + newDietaryPreference);
     }
 
     //Third Scenario
@@ -75,7 +72,6 @@ public void enter_customer_preferences() {
     @Then("allergies should be updated to {string}")
     public void allergies_should_be_updated_to(String newAllergies) {
         assertEquals(newAllergies,currentCustomer.getAllergies());
-        System.out.println("Allergies updated successfully to " + newAllergies);
     }
 
 }

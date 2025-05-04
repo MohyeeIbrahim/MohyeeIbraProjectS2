@@ -20,17 +20,6 @@ public class Feature4 {
     private String displayedOrders;
     private String Result;
 
-
-
-    //    @Given("the chef is logged in")
-//    public void the_chef_is_logged_in() {
-//        chef = new Chef(1, "Chef John", "1234");
-//        chefManager = new ChefManager();
-//        chefManager.addChef(chef);
-//        chefOrderService = new ChefOrderService(chefManager, customerManager);
-//        assertTrue(chefManager.loginChef(chef.getChefId()));
-//        customerManager = new CustomerManager();
-//    }
     @Before
     public void setup(){
         chef = new Chef(1, "Chef John", "1234");

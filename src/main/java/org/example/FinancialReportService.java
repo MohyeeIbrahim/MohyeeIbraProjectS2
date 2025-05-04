@@ -1,10 +1,17 @@
 package org.example;
 
+import java.util.Random;
+
 public class FinancialReportService {
+    private  CustomerManager customerManager;
+
+    public FinancialReportService(CustomerManager customerManager) {
+        this.customerManager = customerManager;
+    }
     public static class Report {
-        public double revenue;
-        public double expenses;
-        public double netProfit;
+        public final double revenue;
+        public final double expenses;
+        public final double netProfit;
 
         public Report(double revenue, double expenses) {
             this.revenue = revenue;
@@ -12,17 +19,23 @@ public class FinancialReportService {
             this.netProfit = revenue - expenses;
         }
 
-        public String formatReport(int month, int year) {
-            return String.format(
-                    "Financial Report for %02d/%d\nTotal Revenue: $%.2f\nTotal Expenses: $%.2f\nNet Profit: $%.2f",
-                    month, year, revenue, expenses, netProfit
-            );
+        public double getRevenue() {
+            return revenue;
+        }
+
+        public double getExpenses() {
+            return expenses;
+        }
+
+        public double getNetProfit() {
+            return netProfit;
         }
     }
 
     public Report generateReport(int month, int year) {
-        double revenue = 10000 + (month * 100);   // Dummy revenue formula
-        double expenses = 5000 + (month * 50);    // Dummy expense formula
+        Random random = new Random((month + 1) * year);
+        double revenue = 10000 + random.nextDouble() * 50000;
+        double expenses = 5000 + random.nextDouble() * 20000;
         return new Report(revenue, expenses);
     }
 }

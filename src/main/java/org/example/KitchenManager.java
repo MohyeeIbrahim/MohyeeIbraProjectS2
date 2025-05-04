@@ -85,7 +85,6 @@ public class KitchenManager {
             if (bestSupplier != null) {
                 // Place the order with the best supplier
                 generatePurchaseOrder(ingredient, bestSupplier, bestPrice);
-
                 // Notify the kitchen manager
                 notifyKitchenManager(ingredient, bestSupplier, bestPrice);
             }

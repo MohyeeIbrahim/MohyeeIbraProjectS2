@@ -28,13 +28,10 @@ public void setUp() {
     customerManager.addCustomer(customer);
 
 }
-//    @Given("the customer is logged in")
-//    public void the_customer_is_logged_in() {
-//
-//    }
+
     @When("the customer chooses to create a custom meal")
     public void the_customer_chooses_to_create_a_custom_meal() {
-     //no code needed hehehehehe
+     //no code needed
     }
     @When("they select the following ingredients: {string}, {string}, {string}")
     public void they_select_the_following_ingredients(String string, String string2, String string3) {
