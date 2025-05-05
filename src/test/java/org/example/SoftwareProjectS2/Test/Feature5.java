@@ -27,10 +27,7 @@ public class Feature5 {
 
         customer=new Customer(100, "Test User", "password", "Vegetarian", "None");
     }
-    @Given("system administrator is logged in")
-    public void system_administrator_is_logged_in() {
 
-    }
     @Given("customer {int} exists in the system")
     public void customer_exists_in_the_system(Integer customerId) {
         customerManager.addCustomer(customer);

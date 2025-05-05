@@ -18,4 +18,4 @@ As a customer, I want to view my past meal orders so that I can reorder meals I 
   Scenario: No past meal orders available
     And I have not placed any orders before
     When I select View Past Orders from the main menu
- Then the system should display a message saying "No past orders found"
+    Then the system should display a message saying "No past orders found"

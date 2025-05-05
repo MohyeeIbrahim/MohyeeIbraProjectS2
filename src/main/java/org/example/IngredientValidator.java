@@ -16,11 +16,6 @@ public class IngredientValidator {
         );
         validCombos = new ArrayList<>();
     }
-    public IngredientValidator(List<List<String>> customCombinations) {
-        this.validCombinations = new ArrayList<>(customCombinations);
-    }
-
-
     public boolean isValidCombination(List<String> ingredients) {
         for (List<String> validCombo : validCombinations) {
             if (validCombo.size() == ingredients.size() &&

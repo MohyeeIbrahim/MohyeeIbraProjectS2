@@ -34,7 +34,7 @@ public class Feature13 {
 
     @Then("it should suggest restocking {string}")
     public void it_should_suggest_restocking(String ingredient) {
-        assertTrue("Expected restock suggestion for: " + ingredient, restockSuggestions.contains(ingredient));
+        assertTrue( restockSuggestions.contains(ingredient));
     }
     //2nd scenario
     @Given("{string} has {int} unit and {string} has {int} units")
@@ -53,10 +53,15 @@ public class Feature13 {
         restockSuggestions = inventoryManager.getRestockSuggestions();
     }
 
-    @Then("it should generate a report suggesting restocking for {string} and {string}")
-    public void it_should_generate_a_report_suggesting_restocking_for_and(String ingredient1, String ingredient2) {
-        assertTrue("Expected restock suggestion for: " + ingredient1, restockSuggestions.contains(ingredient1));
-        assertTrue("Expected restock suggestion for: " + ingredient2, restockSuggestions.contains(ingredient2));
+    @Then("display the following alert:")
+    public void display_the_following_alert(String docString) {
+        List<String> suggestions = inventoryManager.getRestockSuggestions();
+        String[] expectedAlerts = docString.strip().split("\n");
+
+        for (String expected : expectedAlerts) {
+            String ingredient = expected.replace("Low stock alert for: ", "").trim();
+            assertTrue( suggestions.contains(ingredient));
+        }
     }
     //3rd scenario
     @Given("stock for {string} is {int} units")

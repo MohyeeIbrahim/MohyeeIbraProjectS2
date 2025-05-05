@@ -81,11 +81,8 @@ public class KitchenManager {
         for (String ingredient : lowStockIngredients) {
             String bestSupplier = supplierManager.getBestSupplier(ingredient);
             double bestPrice = supplierManager.getBestPrice(ingredient);
-
             if (bestSupplier != null) {
-                // Place the order with the best supplier
                 generatePurchaseOrder(ingredient, bestSupplier, bestPrice);
-                // Notify the kitchen manager
                 notifyKitchenManager(ingredient, bestSupplier, bestPrice);
             }
         }

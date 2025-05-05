@@ -3,9 +3,7 @@ package org.example;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.example.Customer;
 
 public class Order {
     private  int orderId;

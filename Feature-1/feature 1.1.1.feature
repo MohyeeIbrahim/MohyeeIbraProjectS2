@@ -1,12 +1,10 @@
-Feature: Input Dietary Preferences and Allergies
+Feature:
   As a customer,
   I want to input my dietary preferences and allergies
   so that the system can recommend appropriate meals and prevent unwanted ingredients.
 
-  Background:
-    Given  the customer with id 100 is logged in
-
   Scenario: Successfully adding dietary preferences and allergies
+    Given customer want to input his preferences and allergies
     When the customer enter set_preferences "meatLover"
     And the customer enter set_allergies "peanut"
     Then the system should store "meatLover" as the dietary preference

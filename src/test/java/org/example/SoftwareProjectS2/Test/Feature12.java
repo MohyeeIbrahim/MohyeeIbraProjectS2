@@ -33,7 +33,7 @@ public class Feature12 {
 //2nd Scenario
     @Given("{string} stock is low")
     public void stock_is_low(String ingredient) {
-        inventoryManager.addIngredient(ingredient, 2);
+         inventoryManager.addIngredient(ingredient, 2);
          beforeStock=inventoryManager.getIngredientQuantity(ingredient);
     }
 
@@ -83,7 +83,7 @@ public class Feature12 {
     @Then("{string} should marked as {string}")
     public void should_marked_as(String ingredient, String expectedStatus) {
         String actualStatus = inventoryManager.getStockStatus(ingredient);
-        assertTrue(actualStatus.equals(expectedStatus));
+        assertEquals(actualStatus, expectedStatus);
     }
 
 

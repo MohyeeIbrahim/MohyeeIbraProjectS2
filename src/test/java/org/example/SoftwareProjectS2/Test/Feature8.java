@@ -44,7 +44,6 @@ public class Feature8 {
     }
     //2nd scenario
     private String allergy;
-    private String notificationMessage;
     @Given("customer allergic to {string}")
     public void customer_allergic_to(String allergy) {
         this.allergy = allergy;
