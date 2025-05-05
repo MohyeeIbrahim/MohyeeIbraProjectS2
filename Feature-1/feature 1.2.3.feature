@@ -3,12 +3,10 @@ Feature: Store and Retrieve Customer Order History for Trend Analysis
   I want to store and retrieve customer order history
   so that I can analyze trends and improve service offerings.
 
-Background:
-  Given system administrator is logged in
-Scenario:
-  Given customer 100 exists in the system
-  When  a new order is placed by customer 100
-  Then  the system should store the order in the customer's history
+  Scenario:
+    Given customer 100 exists in the system
+    When  a new order is placed by customer 100
+    Then  the system should store the order in the customer's history
 
   Scenario: Retrieving customer order history
     Given customer order exist in the order list

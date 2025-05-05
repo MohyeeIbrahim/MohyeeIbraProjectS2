@@ -28,4 +28,5 @@ public class Meal {
     public boolean isAvailable() {
         return available;
     }
+
 }

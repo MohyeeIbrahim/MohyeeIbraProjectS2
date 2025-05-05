@@ -32,19 +32,6 @@ public class InventoryManager {
         int threshold = thresholds.getOrDefault(ingredient, 5);
         return quantity < threshold ? "Low Stock" : "Sufficient";
     }
-
-    public Map<String, Integer> getAllStock() {
-        return stock;
-    }
-
-    public Map<String, String> getStockOverview() {
-        Map<String, String> statusMap = new HashMap<>();
-        for (String ingredient : stock.keySet()) {
-            statusMap.put(ingredient, getStockStatus(ingredient));
-        }
-        return statusMap;
-    }
-
     public void restockIngredient(String name, int amount) {
         stock.put(name, stock.getOrDefault(name, 0) + amount);
     }
@@ -57,9 +44,14 @@ public class InventoryManager {
         List<String> suggestions = new ArrayList<>();
         for (String ingredient : stock.keySet()) {
             if (isLowStock(ingredient)) {
-                suggestions.add(ingredient);
+                int quantity = stock.get(ingredient);
+                suggestions.add(String.format(
+                        "Alert: Low stock for %s - only %d kg remaining. Please reorder soon.",
+                        ingredient, quantity
+                ));
             }
         }
         return suggestions;
     }
+
 }

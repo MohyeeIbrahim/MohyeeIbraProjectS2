@@ -37,7 +37,7 @@ public void setUp(){
     @Given("chef {string} has expertise in {string} having {int} task")
     public void chef_has_expertise_in_having_task(String chefName, String expertise, Integer taskCount) {
         chef_has_expertise_in_having_tasks(chefName, expertise, taskCount);
-        assertTrue(chefMap.size()==2);
+        assertEquals(2, chefMap.size());
     }
 
     @When("the manager assigns a new {string} task")
@@ -48,8 +48,8 @@ public void setUp(){
     @Then("the task should be assigned to chef {string}")
     public void the_task_should_be_assigned_to_chef(String expectedChefName) {
         Chef chef = chefMap.get(expectedChefName);
-        assertNotNull("Expected chef not found", chef);
-        assertTrue("Chef should have at least one task", chef.getTaskCount() > 0);
+        assertNotNull( chef);
+        assertTrue( chef.getTaskCount() > 0);
     }
     //2nd scenario
     @Given("chef {string} has expertise in {string}")
@@ -69,8 +69,8 @@ public void setUp(){
     @Then("the task should not be assigned to {string}")
     public void the_task_should_not_be_assigned_to(String chefName) {
         Chef chef = chefMap.get(chefName);
-        assertNotNull("Chef should exist", chef);
-        assertTrue("Chef should not have been assigned a task", chef.getTaskCount() == 0);
+        assertNotNull( chef);
+        assertEquals(0, chef.getTaskCount());
     }
 
 

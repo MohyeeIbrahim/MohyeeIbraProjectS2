@@ -50,12 +50,4 @@ public class Chef {
         return notifications;
     }
 
-    public boolean hasNotification(String message) {
-        return notifications.contains(message);
-    }
-
-    public boolean hasNoNotifications() {
-        return notifications.isEmpty();
-    }
-
 }

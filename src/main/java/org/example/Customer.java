@@ -38,7 +38,9 @@ public int getCustomerId() {
     }
 
     public String getDietaryPreference() {
-    return dietaryPreference;
+        if(dietaryPreference.isEmpty())
+            return "No dietary preferences available for this customer";
+        return dietaryPreference;
     }
 
     public void setAllergies(String allergies) {
@@ -68,7 +70,6 @@ public int getCustomerId() {
     }
 
     public ShoppingCart getCart() {
-
         return this.cart;
     }
 
