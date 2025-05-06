@@ -10,6 +10,7 @@ public class Chef {
     List<String> expertise;
     Integer assignedTasks;
     List<String> notifications;
+    private List<String> substitutionAlerts = new ArrayList<>();
 
     public Chef(int chefId, String chefName,String password) {
           this.chefId=chefId;
@@ -48,6 +49,14 @@ public class Chef {
 
     public List<String> getNotifications() {
         return notifications;
+    }
+
+    public void addSubstitutionAlert(String alert) {
+        substitutionAlerts.add(alert);
+    }
+
+    public List<String> getSubstitutionAlerts() {
+        return substitutionAlerts;
     }
 
 }

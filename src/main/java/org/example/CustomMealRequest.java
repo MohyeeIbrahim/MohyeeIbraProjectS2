@@ -16,4 +16,8 @@ public class CustomMealRequest {
     public List<String> getIngredients() {
         return new ArrayList<>(ingredients);
     }
+
+    public void setIngredients(List<String> updatedIngredients) {
+        this.ingredients = updatedIngredients;
+    }
 }
