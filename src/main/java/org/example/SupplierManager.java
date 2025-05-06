@@ -9,7 +9,6 @@ public class SupplierManager {
         supplierPrices = new HashMap<>();
     }
 
-    // Add or update price for an ingredient from a supplier
     public void addOrUpdatePrice(String ingredient, String supplier, double price) {
 
         supplierPrices.putIfAbsent(ingredient, new HashMap<>());

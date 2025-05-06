@@ -16,8 +16,6 @@ public class OrderHistory {
 
         StringBuilder sb = new StringBuilder("Customer past orders:\n");
         int orderNumber = 1;
-
-        // Sort by date newest first
         List<Order> sortedOrders = new ArrayList<>(orders);
         sortedOrders.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
         for (Order order : sortedOrders) {

@@ -15,12 +15,11 @@ public class Feature9 {
     private CustomMealRequest mealRequest;
     private AlertService alertService;
     private SubstitutionService substitutionService;
-    private ChefManager chefManager;
     private List<String> updatedIngredients;
 
     @Before
     public void setUp(){
-        chefManager = new ChefManager();
+        ChefManager chefManager = new ChefManager();
         Chef chef = new Chef(1, "Gordon Ramsay", "1234");
         chefManager.addChef(chef);
         alertService = new AlertService();
@@ -45,7 +44,7 @@ public class Feature9 {
     //2nd Scenario
     @Given("the chef has received an alert for an ingredient substitution")
     public void the_chef_has_received_an_alert_for_an_ingredient_substitution() {
-        List<String> ingredients = Arrays.asList("butter", "salt");  // butter will be substituted
+        List<String> ingredients = Arrays.asList("butter", "salt");
         mealRequest = new CustomMealRequest(102, 1002, ingredients);
         substitutionService.applySubstitution(mealRequest, alertService);
     }

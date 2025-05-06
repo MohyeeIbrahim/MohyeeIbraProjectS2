@@ -25,16 +25,7 @@ public class CustomerManager {
             throw new IllegalArgumentException("Customer with ID " + customerId + " not found.");
         }
     }
-    public boolean loginCustomer(int customerId) {
-        for (Customer cus : customer) {
-            if (cus.getCustomerId() == customerId) {
-                currentCustomer = cus;
-                return true;
-            }
-        }
-        System.out.println("Chef with ID " + customerId + " not found.");
-        return false;
-    }
+
     public String reorderMeal(int mealId) {
         Optional<Meal> mealToReorder = currentCustomer.findMealInHistory(mealId);
 

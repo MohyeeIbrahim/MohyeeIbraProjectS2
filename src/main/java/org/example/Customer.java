@@ -8,8 +8,8 @@ public class Customer {
     int customerId;
     private String customerName;
     String password;
-    String  dietaryPreference;
-    String  allergies;
+    String dietaryPreference;
+    String allergies;
     List<Order> orderHistory ;
     private ShoppingCart cart;
 
@@ -22,11 +22,8 @@ public class Customer {
         this.orderHistory = new ArrayList<Order>();
         this.cart=new ShoppingCart();
     }
-public int getCustomerId() {
-        return customerId;
-}
-    public String getCustomerName() {
-        return customerName;
+    public int getCustomerId() {
+            return customerId;
     }
 
     public void setDietaryPreference(String dietaryPreference) {
@@ -63,10 +60,14 @@ public int getCustomerId() {
     }
 
     public Optional<Meal> findMealInHistory(int selectedMealId) {
-        return orderHistory.stream()
-                .flatMap(order -> order.getMeals().stream())
-                .filter(meal -> meal.getId() == selectedMealId)
-                .findFirst();
+        for (Order order : orderHistory) {
+            for (Meal meal : order.getMeals()) {
+                if (meal.getId() == selectedMealId) {
+                    return Optional.of(meal);
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     public ShoppingCart getCart() {

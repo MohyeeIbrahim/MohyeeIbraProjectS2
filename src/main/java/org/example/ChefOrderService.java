@@ -10,7 +10,6 @@ public class ChefOrderService {
     public String viewCustomerOrderHistory(int chefId, int customerId) {
         try {
             Customer customer = customerManager.getCustomerById(customerId);
-            // Get and verify orders
             String history = customer.getFormattedOrderHistory();
             return history.isEmpty() ? "No orders found" : history;
         } catch (IllegalArgumentException e) {

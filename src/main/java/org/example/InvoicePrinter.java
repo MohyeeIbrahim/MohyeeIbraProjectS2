@@ -21,9 +21,11 @@ public class InvoicePrinter {
                     .append("\n");
         }
         invoice.append("Subtotal: $").append(String.format("%.2f", subtotal)).append("\n");
-        invoice.append("Taxes (").append((int)(taxRate * 100)).append("%): $").append(String.format("%.2f", taxes)).append("\n");
-        invoice.append("Total Payable: $").append(String.format("%.2f", total)).append("\n");
+        //error here
+        invoice.append(String.format("Taxes (%d%%): $%.2f\n", (int)(taxRate * 100), taxes));
 
+        invoice.append("Total Payable: $").append(String.format("%.2f", total)).append("\n");
         return invoice.toString();
     }
+
 }
