@@ -10,17 +10,18 @@ public class SubstitutionService {
         substitutionMap.put("butter", "olive oil");
         substitutionMap.put("sugar", "honey");
     }
-    public List<String> applySubstitution(CustomMealRequest request, AlertService alertService) {
+    public List<String> applySubstitution(CustomMealRequest request, ChefManager chefManager, int chefId) {
         List<String> updatedIngredients = new ArrayList<>();
         for (String ingredient : request.getIngredients()) {
             if (substitutionMap.containsKey(ingredient)) {
                 String substitute = substitutionMap.get(ingredient);
                 updatedIngredients.add(substitute);
-                alertService.sendAlert("Ingredient substitution applied: '" + ingredient + "' replaced with '" + substitute + "'");
-            } else {
+                chefManager.sendAlertToChef(chefId,
+                        "Ingredient substitution applied: '" + ingredient + "' replaced with '" + substitute + "'");            } else {
                 updatedIngredients.add(ingredient);
             }
         }
+        request.setIngredients(updatedIngredients);
         return updatedIngredients;
     }
 }
