@@ -13,9 +13,6 @@ public class CustomMealRequest {
         this.ingredients = new ArrayList<>(ingredients);
         this.status = "Pending";
     }
-    public int getCustomerId() {
-        return customerId;
-    }
     public List<String> getIngredients() {
         return new ArrayList<>(ingredients);
     }

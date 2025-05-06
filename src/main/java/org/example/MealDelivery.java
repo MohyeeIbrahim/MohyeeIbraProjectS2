@@ -3,6 +3,7 @@ package org.example;
 import java.time.LocalDateTime;
 
 public class MealDelivery {
+
     private final LocalDateTime deliveryTime;
     private final boolean cancelled;
 

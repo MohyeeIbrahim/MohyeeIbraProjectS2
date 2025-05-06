@@ -8,6 +8,7 @@ public class IngredientValidator {
 
     private final List<List<String>> validCombinations;
     private List<String> validCombos = new ArrayList<>();
+
     public IngredientValidator() {
         this.validCombinations = Arrays.asList(
                 Arrays.asList("tomato", "basil", "mozzarella"),

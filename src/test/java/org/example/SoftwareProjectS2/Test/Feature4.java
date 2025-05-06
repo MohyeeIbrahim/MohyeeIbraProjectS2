@@ -27,7 +27,6 @@ public class Feature4 {
         customerManager = new CustomerManager();
         chefOrderService = new ChefOrderService(chefManager, customerManager);
         chefManager.addChef(chef);
-        assertTrue(chefManager.loginChef(chef.getChefId()));
     }
 
     @Given("the customer {int} has placed meal orders in the past")

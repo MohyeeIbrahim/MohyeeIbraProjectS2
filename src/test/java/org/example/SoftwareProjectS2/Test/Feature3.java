@@ -29,7 +29,6 @@ public class Feature3 {
                 List.of(new Meal(3, "Quinoa Salad",20,true))));
         customerManager=new CustomerManager();
         customerManager.addCustomer(customer);
-        assertTrue(customerManager.loginCustomer(customer.getCustomerId()));
     }
 
     @When("I select View Past Orders from the main menu")

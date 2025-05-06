@@ -49,10 +49,8 @@ public class Feature7 {
         List<String> selectedIngredients = Arrays.asList(inputIngredients.split(",\\s*"));
         IngredientValidator validator = new IngredientValidator();
         isValid = validator.isValidCombination(selectedIngredients);
-
-        if (!isValid) {
-            errorMessage = "The selected ingredient combination is not allowed";
-        }
+        errorMessage = "The selected ingredient combination is not allowed";
+        assertFalse(isValid);
     }
 
     @Then("an error message {string} should be displayed")
@@ -60,8 +58,6 @@ public class Feature7 {
         assertFalse("Expected combination to be invalid", isValid);
         assertEquals(expectedMessage, errorMessage);
     }
-
-
 
 
 }

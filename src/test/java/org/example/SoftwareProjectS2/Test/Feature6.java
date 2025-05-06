@@ -26,7 +26,6 @@ public void setUp() {
     customer = new Customer(1, "Test Customer", "password", "Vegetarian", "None");
     customerManager = new CustomerManager();
     customerManager.addCustomer(customer);
-
 }
 
     @When("the customer chooses to create a custom meal")
@@ -40,7 +39,7 @@ public void setUp() {
     }
     @Then("they should see a confirmation message {string}")
     public void they_should_see_a_confirmation_message(String expectedMessage) {
-        assertEquals("Confirmation message should match", expectedMessage, confirmationMessage);
+        assertEquals(expectedMessage, confirmationMessage);
        }
 
     @When("the customer attempts to submit a custom meal without ingredients")
