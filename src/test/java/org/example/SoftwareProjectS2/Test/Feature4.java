@@ -15,42 +15,37 @@ public class Feature4 {
     private Chef chef;
     private ChefManager chefManager;
     private CustomerManager customerManager;
-    private ChefOrderService chefOrderService;
     private String displayedOrders;
     private String Result;
     Customer customer;
 
     @Before
-    public void setup(){
+    public void setup() {
         chef = new Chef(1, "Chef John", "1234");
-        chefManager = new ChefManager();
-        customerManager = new CustomerManager();
-        chefOrderService = new ChefOrderService(chefManager, customerManager);
+        customerManager = new CustomerManager();  // Create first
+        chefManager = new ChefManager(customerManager);  // Inject dependency
         chefManager.addChef(chef);
     }
 
     @Given("the customer {int} has placed meal orders in the past")
     public void the_customer_has_placed_meal_orders_in_the_past(Integer customerId) {
-
-        customer = new Customer(customerId, "Customer" , "pass", "None", "None");
+        customer = new Customer(customerId, "Customer", "pass", "None", "None");
 
         List<Meal> meals1 = List.of(
-                new Meal(101, "Vegan Burger", 9,true),
-                new Meal(102, "Sweet Potato Fries", 5,true)
+                new Meal(101, "Vegan Burger", 9, true),
+                new Meal(102, "Sweet Potato Fries", 5, true)
         );
         customer.addOrder(new Order(1, LocalDate.now().minusDays(1), meals1));
         customerManager.addCustomer(customer);
-
     }
 
     @When("chef enters view_order_history for customerId {int}")
     public void chef_enters_view_order_history_for_customer_id(Integer customerId) {
-        displayedOrders = chefOrderService.viewCustomerOrderHistory(chef.getChefId(), customerId);
-        System.out.println("Displayed Orders: " + displayedOrders);
+        displayedOrders = chefManager.viewCustomerOrderHistory(chef.getChefId(), customerId);
     }
+
     @Then("the system should display the list of past meal orders for customerId {int}")
     public void the_system_should_display_the_list_of_past_meal_orders_for_customer_id(Integer int1) {
-
         String expectedOutput = """
             Customer past orders:
             1. [%s] Vegan Burger, Sweet Potato Fries
@@ -61,21 +56,21 @@ public class Feature4 {
         assertEquals(expectedOutput.trim(), displayedOrders.trim());
     }
 
-    //Second Scenario
+    // Second Scenario
     @Given("the customer {int} has not placed any meal orders")
     public void the_customer_has_not_placed_any_meal_orders(Integer customerId) {
         Customer customer = new Customer(customerId, "Ali", "12345678", "Vegetarian", "None");
         customerManager.addCustomer(customer);
         assertTrue(customer.getOrderHistory().isEmpty());
     }
+
     @When("the chef enters view_order_history for customerId {int}")
     public void the_chef_enters_view_order_history_for_cutomer_id(Integer customerId) {
-        Result=chefOrderService.viewCustomerOrderHistory(chef.getChefId(), customerId);
+        Result = chefManager.viewCustomerOrderHistory(chef.getChefId(), customerId);
     }
+
     @Then("the system display {string}")
     public void the_system_display(String expected) {
-        assertEquals(expected,Result);
+        assertEquals(expected, Result);
     }
-
-
 }
