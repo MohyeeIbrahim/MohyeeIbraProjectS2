@@ -11,7 +11,7 @@ public class OrderHistory {
     }
     public String formatAllOrders() {
         if (orders.isEmpty()) {
-            return "You have no past orders";
+            return "No past orders found";
         }
 
         StringBuilder sb = new StringBuilder("Customer past orders:\n");
@@ -21,6 +21,6 @@ public class OrderHistory {
         for (Order order : sortedOrders) {
             sb.append(order.formatForDisplay(orderNumber++)).append("\n");
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 }

@@ -2,9 +2,6 @@ Feature: View Past Meal Orders
 As a customer, I want to view my past meal orders so that I can reorder meals I liked.
 
 
-  Background:
-    Given the customer is logged in
-
   Scenario: View past meal orders successfully
     When I select View Past Orders from the main menu
     Then the system should display a list of customer past meal orders
