@@ -3,7 +3,7 @@ import java.util.*;
 
 public class SupplierManager {
 
-    private Map<String, Map<String, Double>> supplierPrices;
+    private final Map<String, Map<String, Double>> supplierPrices;
 
     public SupplierManager() {
         supplierPrices = new HashMap<>();

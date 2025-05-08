@@ -1,5 +1,6 @@
 package org.example.SoftwareProjectS2.Test;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,15 +12,16 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class Feature3 {
-    Customer customer;
+    Customer customer,customer2;
     CustomerManager customerManager;
     String pastOrder;
     private ShoppingCart currentCart;
     private String systemResponse;
 
-    @Given("the customer is logged in")
-    public void the_customer_is_logged_in() {
+    @Before
+    public void setUp(){
         customer=new Customer(100,"ali","ssss","Vegan","None");
+        customer2=new Customer(1000,"mohyee","fda","meat","None");
         customer.addOrder(new Order(1, LocalDate.now().minusDays(3),
                 List.of(
                         new Meal(1, "Vegan Burger",15,true),
@@ -29,7 +31,10 @@ public class Feature3 {
                 List.of(new Meal(3, "Quinoa Salad",20,true))));
         customerManager=new CustomerManager();
         customerManager.addCustomer(customer);
+        customerManager.addCustomer(customer2);
+
     }
+
 
     @When("I select View Past Orders from the main menu")
     public void i_select_view_past_orders_from_the_main_menu() {
@@ -49,6 +54,7 @@ public class Feature3 {
 
         assertEquals(expectedOutput.trim(), pastOrder.trim());
     }
+
     //Second Scenario
     @Given("customer have past meal orders in his history")
     public void customer_have_past_meal_orders_in_his_history() {
@@ -62,7 +68,8 @@ public class Feature3 {
 
     @When("customer enter the meal ID from his past orders")
     public void customer_enter_the_meal_id_from_his_past_orders() {
-        this.systemResponse = customerManager.reorderMeal(2);
+        customerManager.setCurrentCustomer(customer);
+        this.systemResponse = customerManager.reorderMeal(customer, 2);
     }
 
     @Then("the system should add the selected meal to his new order")
@@ -78,15 +85,12 @@ public class Feature3 {
     //3rd scenario
     @Given("I have not placed any orders before")
     public void i_have_not_placed_any_orders_before() {
-        Customer c=new Customer(1000,"mohyee","fda","meat","None");
-        assertTrue(c.getOrderHistory().isEmpty());
+        assertTrue(customer2.getOrderHistory().isEmpty());
 
     }
     @Then("the system should display a message saying {string}")
     public void the_system_should_display_a_message_saying(String expected) {
-        Customer c=new Customer(1000,"mohyee","fda","meat","None");
-        assertEquals(expected,c.getFormattedOrderHistory());
-
+        assertEquals(expected,customer2.getFormattedOrderHistory());
     }
 
 }

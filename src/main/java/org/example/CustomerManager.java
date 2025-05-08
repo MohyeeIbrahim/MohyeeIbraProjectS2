@@ -14,23 +14,23 @@ public class CustomerManager {
     public void addCustomer(Customer currentCustomer) {
         customer.add(currentCustomer);
     }
+    public void setCurrentCustomer(Customer customer) {
+        this.currentCustomer = customer;
+    }
 
     public Customer getCustomerById(Integer customerId) {
-        {
             for (Customer c : customer) {
                 if (c.getCustomerId() == customerId) {
                     return c;
                 }
             }
-            throw new IllegalArgumentException("Customer with ID " + customerId + " not found.");
-        }
+            return null;
     }
 
-    public String reorderMeal(int mealId) {
-        Optional<Meal> mealToReorder = currentCustomer.findMealInHistory(mealId);
-
+    public String reorderMeal(Customer customer, int mealId) {
+        Optional<Meal> mealToReorder = customer.findMealInHistory(mealId);
         if (mealToReorder.isPresent()) {
-            currentCustomer.getCart().addItem(mealToReorder.get());
+            customer.getCart().addItem(mealToReorder.get());
             return "Added " + mealToReorder.get().getName() + " to your cart";
         }
         return "Meal not found in your history";

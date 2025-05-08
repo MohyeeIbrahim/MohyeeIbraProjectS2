@@ -22,6 +22,7 @@ public class Order {
     public List<Meal> getMeals() {
         return new ArrayList<Meal>(meals);
     }
+
     public String formatForDisplay(int orderNumber) {
         StringBuilder sb = new StringBuilder();
         sb.append(orderNumber).append(". [").append(date).append("] ");

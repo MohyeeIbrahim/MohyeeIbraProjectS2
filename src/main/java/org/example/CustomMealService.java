@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomMealService {
-    private IngredientValidator validator=new IngredientValidator();
-    private List<String> ingredients=new ArrayList<String>();
-    private List<CustomMealRequest> customMealRequests = new ArrayList<>();
+    private final IngredientValidator validator=new IngredientValidator();
+    private final List<CustomMealRequest> customMealRequests = new ArrayList<CustomMealRequest>();
     private int nextRequestId = 1;
 
     public String createCustomMealRequest(int customerId, List<String> ingredients) {

@@ -3,6 +3,7 @@ package org.example;
 public class ChefOrderService {
     private ChefManager chefManager;
     private CustomerManager customerManager;
+
     public ChefOrderService(ChefManager chefManager, CustomerManager customerManager) {
         this.chefManager = chefManager;
         this.customerManager = customerManager;
@@ -12,7 +13,7 @@ public class ChefOrderService {
             Customer customer = customerManager.getCustomerById(customerId);
             String history = customer.getFormattedOrderHistory();
             return history.isEmpty() ? "No orders found" : history;
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             return "Customer not found ";
         }
     }

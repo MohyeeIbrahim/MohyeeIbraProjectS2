@@ -1,10 +1,10 @@
 package org.example;
 
 public class Meal {
-    private int mealId;
-    private String name;
-    private double price;
-    private boolean available;
+    private final int mealId;
+    private final String name;
+    private final double price;
+    private final boolean available;
 
     public Meal(int id, String name, double price, boolean available) {
         this.mealId = id;
