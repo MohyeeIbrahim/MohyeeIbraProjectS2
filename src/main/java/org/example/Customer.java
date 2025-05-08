@@ -35,7 +35,7 @@ public class Customer {
     }
 
     public String getDietaryPreference() {
-        if(dietaryPreference.isEmpty())
+        if (dietaryPreference == null || dietaryPreference.isEmpty())
             return "No dietary preferences available for this customer";
         return dietaryPreference;
     }
@@ -56,7 +56,16 @@ public class Customer {
         if (orderHistory.isEmpty()) {
             return "No past orders found";
         }
-        return new OrderHistory(orderHistory).formatAllOrders();
+
+        StringBuilder sb = new StringBuilder("Customer past orders:\n");
+        int orderNumber = 1;
+        List<Order> sortedOrders = new ArrayList<>(orderHistory);
+        sortedOrders.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+
+        for (Order order : sortedOrders) {
+            sb.append(order.formatForDisplay(orderNumber++)).append("\n");
+        }
+        return sb.toString().trim();
     }
 
     public Optional<Meal> findMealInHistory(int selectedMealId) {

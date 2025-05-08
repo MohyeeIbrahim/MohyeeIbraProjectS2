@@ -18,6 +18,8 @@ public class Feature16 {
     private Customer customer;
     private String printedInvoice;
     private String invoiceSummary;
+    private Order currentOrder;
+
 
     @Before
     public void setUp(){
@@ -33,8 +35,8 @@ public class Feature16 {
         Meal meal2 = new Meal(2, "Vegan Salad", 7.49, true);
         List<Meal> meals = Arrays.asList(meal1, meal2);
 
-        Order order = new Order(1001, LocalDate.now(), meals);
-        customer.addOrder(order);
+        currentOrder  = new Order(1001, LocalDate.now(), meals);
+        customer.addOrder(currentOrder);
 
         assertFalse(customer.getOrderHistory().isEmpty());
     }
@@ -46,19 +48,13 @@ public class Feature16 {
 
     @Then("the system should print an invoice showing the order details and total amount")
     public void the_system_should_print_an_invoice_showing_the_order_details_and_total_amount() {
-        List<Meal> meals = customer.getOrderHistory().get(0).getMeals();
-        double subtotal = meals.stream().mapToDouble(Meal::getPrice).sum();
-        double taxRate = 0.10;
-        double taxes = subtotal * taxRate;
-        double total = subtotal + taxes;
-
-        String invoice = InvoicePrinter.generateInvoiceSummary(meals, taxRate);
+        String invoice = currentOrder.generateInvoice(0.10);
 
         assertTrue(invoice.contains("Vegan Burger"));
         assertTrue(invoice.contains("Vegan Salad"));
-        assertTrue(invoice.contains(String.format("Subtotal: $%.2f", subtotal)));
-        assertTrue(invoice.contains(String.format("Taxes (10%%): $%.2f", taxes)));
-        assertTrue(invoice.contains(String.format("Total Payable: $%.2f", total)));
+        assertTrue(invoice.contains("Subtotal: $17.48"));
+        assertTrue(invoice.contains("Tax (10%): $1.75"));
+        assertTrue(invoice.contains("Total: $19.23"));
     }
 
     // Scenario 2:
@@ -104,21 +100,16 @@ public class Feature16 {
 
     @When("I review the final order")
     public void i_review_the_final_order() {
-        double taxRate = 0.10;
-        invoiceSummary = InvoicePrinter.generateInvoiceSummary(customer.getCart().getItems(), taxRate);
+        currentOrder = new Order(5, LocalDate.now(), customer.getCart().getItems());
+        invoiceSummary = currentOrder.generateInvoice(0.10);
     }
 
     @Then("the system should print an invoice summary including items, taxes, and total payable amount")
     public void the_system_should_print_an_invoice_summary_including_items_taxes_and_total_payable_amount() {
-        List<Meal> items = customer.getCart().getItems();
-        double subtotal = items.stream().mapToDouble(Meal::getPrice).sum();
-        double tax = subtotal * 0.10;
-        double total = subtotal + tax;
-
         assertTrue(invoiceSummary.contains("Cheeseburger"));
         assertTrue(invoiceSummary.contains("Fries"));
-        assertTrue(invoiceSummary.contains(String.format("Subtotal: $%.2f", subtotal)));
-        assertTrue(invoiceSummary.contains(String.format("Taxes (10%%): $%.2f", tax)));
-        assertTrue(invoiceSummary.contains(String.format("Total Payable: $%.2f", total)));
+        assertTrue(invoiceSummary.contains("Subtotal: $12.48"));
+        assertTrue(invoiceSummary.contains("Tax (10%): $1.25"));
+        assertTrue(invoiceSummary.contains("Total: $13.73"));
     }
 }

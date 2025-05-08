@@ -7,7 +7,6 @@ import java.util.List;
 public class IngredientValidator {
 
     private final List<List<String>> validCombinations;
-    private List<String> validCombos = new ArrayList<>();
 
     public IngredientValidator() {
         this.validCombinations = Arrays.asList(
@@ -15,7 +14,6 @@ public class IngredientValidator {
                 Arrays.asList("chicken", "broccoli", "rice"),
                 Arrays.asList("beef", "lettuce", "tomato")
         );
-        validCombos = new ArrayList<>();
     }
     public boolean isValidCombination(List<String> ingredients) {
         for (List<String> validCombo : validCombinations) {

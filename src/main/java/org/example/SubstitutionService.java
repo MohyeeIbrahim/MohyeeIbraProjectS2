@@ -1,10 +1,7 @@
 package org.example;
-
 import java.util.*;
-
 public class SubstitutionService {
     private final Map<String, String> substitutionMap;
-
     public SubstitutionService() {
         substitutionMap = new HashMap<String,String>();
         substitutionMap.put("butter", "olive oil");
