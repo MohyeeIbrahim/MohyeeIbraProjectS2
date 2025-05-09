@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chef {
-    int chefId;
-    String chefName;
-    String password;
+    private final int chefId;
+    private final String chefName;
+    private  String password;
     List<String> expertise;
     Integer assignedTasks;
     List<String> notifications;

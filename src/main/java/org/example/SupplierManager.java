@@ -6,7 +6,6 @@ public class SupplierManager {
         supplierPrices = new HashMap<>();
     }
     public void addOrUpdatePrice(String ingredient, String supplier, double price) {
-
         supplierPrices.putIfAbsent(ingredient, new HashMap<>());
         supplierPrices.get(ingredient).put(supplier, price);
     }
