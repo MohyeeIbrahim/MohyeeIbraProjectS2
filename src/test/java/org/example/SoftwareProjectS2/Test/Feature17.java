@@ -103,7 +103,6 @@ public class Feature17 {
         assertNotNull("PDF path should not be null", pdfPath);
         assertTrue("PDF file should exist", Files.exists(pdfPath));
         assertTrue("PDF file should not be empty", Files.size(pdfPath) > 0);
-        Files.deleteIfExists(pdfPath);
     }
 
     @Then("the file should be named {string}")
