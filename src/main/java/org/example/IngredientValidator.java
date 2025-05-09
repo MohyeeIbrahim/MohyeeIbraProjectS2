@@ -1,13 +1,8 @@
 package org.example;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 public class IngredientValidator {
-
     private final List<List<String>> validCombinations;
-
     public IngredientValidator() {
         this.validCombinations = Arrays.asList(
                 Arrays.asList("tomato", "basil", "mozzarella"),
@@ -24,5 +19,4 @@ public class IngredientValidator {
         }
         return false;
     }
-
 }

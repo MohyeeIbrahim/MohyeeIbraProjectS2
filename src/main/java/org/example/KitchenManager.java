@@ -7,24 +7,18 @@ public class KitchenManager {
     private SupplierManager supplierManager;
     private InventoryManager inventoryManager;
     private List<String> notifications = new ArrayList<>();
-
-
     public KitchenManager(ChefManager chefManager) {
         this.chefManager = chefManager;
     }
-
     public KitchenManager(SupplierManager supplierManager) {
         this.supplierManager = supplierManager;
     }
-
     public KitchenManager(InventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
     }
-
     public void assignTask(String taskType) {
         List<Chef> chefs = chefManager.getAllChefs();
         Chef suitableChef = null;
-
         for (Chef chef : chefs) {
             if (chef.hasExpertise(taskType)) {
                 if (suitableChef == null || chef.getTaskCount() < suitableChef.getTaskCount()) {
@@ -32,7 +26,6 @@ public class KitchenManager {
                 }
             }
         }
-
         if (suitableChef != null) {
             suitableChef.addTask();
             suitableChef.addNotification("New task assigned: " + taskType);
@@ -41,23 +34,18 @@ public class KitchenManager {
             System.out.println("No suitable chef available");
         }
     }
-
     public Map<String, Double> showSortedIngredientPrices(String ingredientName) {
         if (supplierManager == null) {
             System.out.println("SupplierManager not available.");
             return new HashMap<>();
         }
-
         List<Map.Entry<String, Double>> sortedList = supplierManager.getSortedPrices(ingredientName);
-
         Map<String, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Double> entry : sortedList) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
-
         return sortedMap;
     }
-
     private void generatePurchaseOrder(String ingredient, String supplier, double price) {
         System.out.println("Auto-order placed for: " + ingredient + " from " + supplier + " at $" + price);
     }
@@ -80,7 +68,6 @@ public class KitchenManager {
     }
     public void autoOrderLowStockIngredients() {
         List<String> lowStockIngredients = inventoryManager.getRestockSuggestions();
-
         for (String ingredient : lowStockIngredients) {
             String bestSupplier = supplierManager.getBestSupplier(ingredient);
             double bestPrice = supplierManager.getBestPrice(ingredient);
@@ -95,7 +82,6 @@ public class KitchenManager {
             System.out.println("SupplierManager not available.");
             return;
         }
-
         var prices = supplierManager.getPricesForIngredient(ingredientName);
         if (prices.isEmpty()) {
             System.out.println("No prices found for: " + ingredientName);

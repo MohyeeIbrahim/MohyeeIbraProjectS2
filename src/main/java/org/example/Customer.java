@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Customer {
-    int customerId;
+    private int customerId;
     private String customerName;
     String password;
     String dietaryPreference;

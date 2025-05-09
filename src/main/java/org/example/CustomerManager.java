@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +35,8 @@ public class CustomerManager {
             return "Added " + mealToReorder.get().getName() + " to your cart";
         }
         return "Meal not found in your history";
+    }
+    public List<Customer> getAllCustomers() {
+        return Collections.unmodifiableList(customer);
     }
 }

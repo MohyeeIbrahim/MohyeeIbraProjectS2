@@ -13,43 +13,49 @@ import java.util.Locale;
 public class SystemAdministrator {
     private CustomerManager customerManager;
     private static final String REPORTS_DIR = "financial_reports";
-    private  FinancialReportService reportService;
+    private FinancialReportService reportService;
+
     public SystemAdministrator(CustomerManager customerManager) {
         this.customerManager = customerManager;
         this.reportService = new FinancialReportService(customerManager);
-        createReportsDirectory();
     }
+
     public SystemAdministrator(FinancialReportService reportService) {
-        this.reportService=reportService;
+        this.reportService = reportService;
     }
-    private void createReportsDirectory() {
+
+    public Path exportFinancialReportToPdf(int month, int year) throws IOException {
         Path dirPath = Paths.get(REPORTS_DIR);
         if (!dirPath.toFile().exists()) {
             dirPath.toFile().mkdirs();
         }
-    }
-    public Path exportFinancialReportToPdf(int month, int year) throws IOException {
+
         String monthName = Month.of(month).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         String period = monthName + " " + year;
         String filename = "Financial_Report_" + monthName + "_" + year + ".pdf";
         Path filePath = Paths.get(REPORTS_DIR, filename);
+
         FinancialReportService.Report report = reportService.generateReport(month, year);
+
         try (PdfWriter writer = new PdfWriter(filePath.toString());
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
+
             document.add(new Paragraph("Financial Report - " + period)
                     .setFontSize(16)
                     .setBold());
-            document.add(new Paragraph(String.format("Total Revenue: $%,.2f", report.revenue))
+            document.add(new Paragraph(String.format("Total Revenue: $%,.2f", report.getRevenue()))
                     .setFontSize(12));
-            document.add(new Paragraph(String.format("Total Expenses: $%,.2f", report.expenses))
+            document.add(new Paragraph(String.format("Total Expenses: $%,.2f", report.getExpenses()))
                     .setFontSize(12));
-            document.add(new Paragraph(String.format("Net Profit: $%,.2f", report.netProfit))
+            document.add(new Paragraph(String.format("Net Profit: $%,.2f", report.getNetProfit()))
                     .setFontSize(12)
                     .setBold());
         }
+
         return filePath;
     }
+
     public String getCustomerOrderHistory(Integer customerId) {
         Customer customer = customerManager.getCustomerById(customerId);
         return customer.getFormattedOrderHistory();
