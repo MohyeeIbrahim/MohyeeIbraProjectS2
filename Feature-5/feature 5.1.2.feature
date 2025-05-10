@@ -11,6 +11,15 @@ Feature: As a system administrator,
 
   Scenario: Export a financial report to PDF
     Given a financial report for "April 2025" has been generated
-    When the administrator selects "Export as PDF" from the main menu
+    When the administrator selects Export as PDF from the main menu
     Then the system should generate a PDF file
     And the file should be named "Financial_Report_April_2025.pdf"
+
+  Scenario: Generating report for a month with no orders
+    When enters 3 for month and 2025 for year with no orders
+    Then the system should display zero values for all metrics
+
+
+  Scenario: Administrator enters an invalid month and year
+    When the administrator enters invalid month 13 and year 2025
+    Then the system should display an error message

@@ -23,18 +23,14 @@ public class Feature6 {
 @Before
 public void setUp() {
     customMealService = new CustomMealService();
-   customer = new Customer(1, "Test Customer", "password", "Vegetarian", "None");
+    customer = new Customer(1, "Test Customer", "password", "Vegetarian", "None");
     customerManager = new CustomerManager();
     customerManager.addCustomer(customer);
-
 }
-//    @Given("the customer is logged in")
-//    public void the_customer_is_logged_in() {
-//
-//    }
+
     @When("the customer chooses to create a custom meal")
     public void the_customer_chooses_to_create_a_custom_meal() {
-     //no code needed hehehehehe
+     //no code needed
     }
     @When("they select the following ingredients: {string}, {string}, {string}")
     public void they_select_the_following_ingredients(String string, String string2, String string3) {
@@ -43,10 +39,8 @@ public void setUp() {
     }
     @Then("they should see a confirmation message {string}")
     public void they_should_see_a_confirmation_message(String expectedMessage) {
-
-        assertEquals("Confirmation message should match", expectedMessage, confirmationMessage);
-
-}
+        assertEquals(expectedMessage, confirmationMessage);
+       }
 
     @When("the customer attempts to submit a custom meal without ingredients")
     public void submit_empty_ingredients() {

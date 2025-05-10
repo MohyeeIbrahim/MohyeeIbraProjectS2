@@ -5,7 +5,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.*;
-import org.junit.Assert;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,13 +24,9 @@ public class Feature5 {
     public void setUp() {
         customerManager=new CustomerManager();
         admin=new SystemAdministrator(customerManager);
-
         customer=new Customer(100, "Test User", "password", "Vegetarian", "None");
     }
-    @Given("system administrator is logged in")
-    public void system_administrator_is_logged_in() {
 
-    }
     @Given("customer {int} exists in the system")
     public void customer_exists_in_the_system(Integer customerId) {
         customerManager.addCustomer(customer);
@@ -64,6 +59,7 @@ public class Feature5 {
     public void the_system_should_display_a_message(String string) {
         assertEquals(string, displayedMessage);
     }
+
     //3rd scenario
     @Given("customer order exist in the order list")
     public void customer_order_exist_in_the_order_list() {
@@ -78,17 +74,14 @@ public class Feature5 {
     }
     @Then("the system should retrieve and display the list of orders")
     public void the_system_should_retrieve_and_display_the_list_of_orders() {
-        assertNotNull("Order history response must not be null", adminOrderHistoryResponse);
-        assertFalse("Order history must not be empty",adminOrderHistoryResponse.trim().isEmpty());
-        // Verify it's not the "empty history" message
+        assertNotNull(adminOrderHistoryResponse);
+        assertFalse(adminOrderHistoryResponse.trim().isEmpty());
+
         assertNotEquals("Order history must not show 'no orders'",
                 "No past orders found", adminOrderHistoryResponse.trim());
 
-        // Verify expected content
-        assertTrue("Order history must contain meal 'Burger'",
-                adminOrderHistoryResponse.contains("Burger"));
-        assertTrue("Order history must contain order date",
-                adminOrderHistoryResponse.contains(LocalDate.now().toString()));
+        assertTrue(adminOrderHistoryResponse.contains("Burger"));
+        assertTrue(adminOrderHistoryResponse.contains(LocalDate.now().toString()));
     }
     }
 

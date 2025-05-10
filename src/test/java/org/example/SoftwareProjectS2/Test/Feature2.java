@@ -9,29 +9,25 @@ import org.example.ChefManager;
 import org.example.Customer;
 import org.example.CustomerManager;
 
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Feature2 {
     private Chef chef;
     private ChefManager chefManager;
     private CustomerManager customerManager;
     private Customer customer;
-    private String mealPlan;
-    //1st scenario  -- |>>>>
 
-    @Given("the chef is logged in")
-    public void the_chef_is_logged_in() {
+    //1st scenario
+   @Before
+    public void setUp(){
         chef=new Chef(1, "Chef John", "1234");
         chefManager=new ChefManager();
         chefManager.addChef(chef);
-        assertTrue(chefManager.loginChef(chef.getChefId()));
-    }
+       customerManager = new CustomerManager();
+   }
 
     @Given("the customer {int} has provided dietary preferences and allergies")
     public void the_customer_has_provided_dietary_preferences_and_allergies(Integer customerId) {
-        customerManager = new CustomerManager();
         customer = new Customer(customerId, "mohyee", "12345", "Vegetarian", "None");
         customerManager.addCustomer(customer);
     }
@@ -43,47 +39,24 @@ public class Feature2 {
 
     @Then("the system should display {string}")
     public void the_system_should_display(String string) {
-        // Write code here that turns the phrase above into concrete actions
         assertEquals("Vegetarian", customer.getDietaryPreference());
         assertEquals("None", customer.getAllergies());
-        System.out.println("Dietary Preference: " + customer.getDietaryPreference() + ", Allergies: " + customer.getAllergies());
+    }
+    //2nd scenario
+    @Given("the customer {int} has not provided any dietary preferences")
+    public void the_customer_has_not_provided_any_dietary_preferences(Integer customerId) {
+       customer=new Customer(customerId,"ali","123","","penaut");
+       customerManager.addCustomer(customer);
+    }
+    @When("the chef enter view_preferences")
+    public void the_chef_enter_view_preferences() {
+
+    }
+    @Then("the display {string}")
+    public void the_display(String expectedString) {
+       assertEquals(expectedString,customer.getDietaryPreference());
     }
 
-    //2ndscenario  -- |>>>>
 
-    @Given("the customer {int} has dietary preferences {string} and allergies {string}")
-    public void the_customer_has_dietary_preferences_and_allergies(Integer customerId, String dietaryPreference, String allergies) {
-        customerManager = new CustomerManager();
-        customer = new Customer(customerId, "ibra", "12345", dietaryPreference, allergies);
-        customerManager.addCustomer(customer);
-    }
 
-    @Given("the chef has viewed the customer's dietary preferences")
-    public void the_chef_has_viewed_the_customer_s_dietary_preferences() {
-        chefManager = new ChefManager();
-        Chef chef = new Chef(2, "Chef ibra","8888");
-        chefManager.addChef(chef);
-        assertTrue(chefManager.loginChef(2));
-    }
-
-    @When("the chef creates a meal plan for customer {int}")
-    public void the_chef_creates_a_meal_plan_for_customer(Integer customerId) {
-        // Simulate meal plan creation based on customer preferences and allergies
-        String dietaryPreference = customer.getDietaryPreference();
-        String allergies = customer.getAllergies();
-        mealPlan = "Meal Plan for Customer " + customerId + ": " +
-                "Dietary Preference: " + dietaryPreference + ", " +
-                "Excluded Allergens: " + allergies;
-    }
-
-    @Then("the system should generate a meal plan excluding {string}")
-    public void the_system_should_generate_a_meal_plan_excluding(String allergen) {
-        assertTrue(mealPlan.contains("Excluded Allergens: " + allergen));
-    }
-
-    @Then("the meal plan should include {string} meals")
-    public void the_meal_plan_should_include_meals(String dietaryPreference) {
-        assertTrue(mealPlan.contains("Dietary Preference: " + dietaryPreference));
-    }
-//2nd scenario
 }

@@ -42,16 +42,16 @@ public class Feature11 {
     @Then("{string} should receive a notification {string}")
     public void should_receive_a_notification(String name, String expectedNotification) {
         Chef chef = chefMap.get(name);
-        assertNotNull("Chef not found", chef);
+        assertNotNull( chef);
         List<String> notifications = chef.getNotifications();
-        assertTrue("Expected notification not found", notifications.contains(expectedNotification));
+        assertTrue( notifications.contains(expectedNotification));
     }
     @Then("{string} should not receive any notification")
     public void should_not_receive_any_notification(String name) {
         Chef chef = chefMap.get(name);
-        assertNotNull("Chef not found", chef);
+        assertNotNull(chef);
         List<String> notifications = chef.getNotifications();
-        assertTrue("Chef should not have any notifications", notifications.isEmpty());
+        assertTrue(notifications.isEmpty());
     }
     //2nd sceanrio
     @Given("no chef has expertise in {string}")
@@ -71,7 +71,7 @@ public class Feature11 {
         chefManager.addChef(chef2);
 
         for (Chef chef : chefManager.getAllChefs()) {
-            assertTrue("No notifications should be sent", chef.getNotifications().isEmpty());
+            assertTrue( chef.getNotifications().isEmpty());
         }
     }
 

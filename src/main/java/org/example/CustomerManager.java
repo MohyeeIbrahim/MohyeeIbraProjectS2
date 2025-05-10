@@ -1,13 +1,13 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class CustomerManager {
     public  List<Customer> customer;
     private Customer currentCustomer;
-
     public CustomerManager(){
         customer=new ArrayList<Customer>();
     }
@@ -15,34 +15,28 @@ public class CustomerManager {
     public void addCustomer(Customer currentCustomer) {
         customer.add(currentCustomer);
     }
+    public void setCurrentCustomer(Customer customer) {
+        this.currentCustomer = customer;
+    }
 
     public Customer getCustomerById(Integer customerId) {
-        {
             for (Customer c : customer) {
                 if (c.getCustomerId() == customerId) {
                     return c;
                 }
             }
-            throw new IllegalArgumentException("Customer with ID " + customerId + " not found.");
-        }
+            return null;
     }
-    public boolean loginCustomer(int customerId) {
-        for (Customer cus : customer) {
-            if (cus.getCustomerId() == customerId) {
-                currentCustomer = cus;
-                return true;
-            }
-        }
-        System.out.println("Chef with ID " + customerId + " not found.");
-        return false;
-    }
-    public String reorderMeal(int mealId) {
-        Optional<Meal> mealToReorder = currentCustomer.findMealInHistory(mealId);
 
+    public String reorderMeal(Customer customer, int mealId) {
+        Optional<Meal> mealToReorder = customer.findMealInHistory(mealId);
         if (mealToReorder.isPresent()) {
-            currentCustomer.getCart().addItem(mealToReorder.get());
+            customer.getCart().addItem(mealToReorder.get());
             return "Added " + mealToReorder.get().getName() + " to your cart";
         }
         return "Meal not found in your history";
+    }
+    public List<Customer> getAllCustomers() {
+        return Collections.unmodifiableList(customer);
     }
 }

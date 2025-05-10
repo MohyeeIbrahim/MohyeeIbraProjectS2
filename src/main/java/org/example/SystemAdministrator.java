@@ -4,35 +4,32 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
-
 public class SystemAdministrator {
-    private final CustomerManager customerManager;
+    private CustomerManager customerManager;
     private static final String REPORTS_DIR = "financial_reports";
-    private final FinancialReportService reportService;
+    private FinancialReportService reportService;
 
     public SystemAdministrator(CustomerManager customerManager) {
         this.customerManager = customerManager;
-        this.reportService = new FinancialReportService();
-        createReportsDirectory();
+        this.reportService = new FinancialReportService(customerManager);
     }
 
+    public SystemAdministrator(FinancialReportService reportService) {
+        this.reportService = reportService;
+    }
 
-    private void createReportsDirectory() {
+    public Path exportFinancialReportToPdf(int month, int year) throws IOException {
         Path dirPath = Paths.get(REPORTS_DIR);
         if (!dirPath.toFile().exists()) {
             dirPath.toFile().mkdirs();
         }
-    }
 
-    public Path exportFinancialReportToPdf(int month, int year) throws IOException {
         String monthName = Month.of(month).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         String period = monthName + " " + year;
         String filename = "Financial_Report_" + monthName + "_" + year + ".pdf";
@@ -44,19 +41,14 @@ public class SystemAdministrator {
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
 
-            // Add report header
             document.add(new Paragraph("Financial Report - " + period)
                     .setFontSize(16)
                     .setBold());
-
-            // Add financial data
-            document.add(new Paragraph(String.format("Total Revenue: $%,.2f", report.revenue))
+            document.add(new Paragraph(String.format("Total Revenue: $%,.2f", report.getRevenue()))
                     .setFontSize(12));
-
-            document.add(new Paragraph(String.format("Total Expenses: $%,.2f", report.expenses))
+            document.add(new Paragraph(String.format("Total Expenses: $%,.2f", report.getExpenses()))
                     .setFontSize(12));
-
-            document.add(new Paragraph(String.format("Net Profit: $%,.2f", report.netProfit))
+            document.add(new Paragraph(String.format("Net Profit: $%,.2f", report.getNetProfit()))
                     .setFontSize(12)
                     .setBold());
         }
@@ -64,20 +56,8 @@ public class SystemAdministrator {
         return filePath;
     }
 
-
     public String getCustomerOrderHistory(Integer customerId) {
         Customer customer = customerManager.getCustomerById(customerId);
         return customer.getFormattedOrderHistory();
-
     }
-//    public void writePdf(String filename, int month, int year, int report) throws IOException {
-//        PdfWriter writer = new PdfWriter(filename);
-//        PdfDocument pdf = new PdfDocument(writer);
-//        Document doc = new Document(pdf);
-//
-//        doc.add(new Paragraph(report.formatReport(month, year)));
-//        doc.close();
-//    }
-
-
 }

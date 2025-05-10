@@ -1,48 +1,46 @@
 package org.example;
 import java.util.*;
 public class ChefManager {
-    private List<Chef> chefs; // List to store multiple chefs
-    private Chef currentChef; // Currently logged-in chef
+    private List<Chef> chefs;
+    private CustomerManager customerManager;
 
 
     public ChefManager() {
         chefs = new ArrayList<Chef>();
     }
+    public ChefManager(CustomerManager customerManager) {
+        this();
+        this.customerManager=customerManager;
+    }
 
-    // Add a new chef to the list
+
     public void addChef(Chef chef) {
         chefs.add(chef);
     }
 
-    // Log in a chef by their ID
-    public boolean loginChef(int chefId) {
-        for (Chef chef : chefs) {
-            if (chef.getChefId() == chefId) {
-                currentChef = chef;
-                return true;
-            }
-        }
-        System.out.println("Chef with ID " + chefId + " not found.");
-        return false;
-    }
-    // Get the currently logged-in chef
-    public Chef getCurrentChef() {
-        if (currentChef == null) {
-            throw new IllegalStateException("No chef is currently logged in.");
-        }
-        return currentChef;
-    }
-
-    // Get a chef by their ID
-    public Chef getChefById(int chefId) {
-        for (Chef chef : chefs) {
-            if (chef.getChefId() == chefId) {
-                return chef;
-            }
-        }
-        throw new IllegalArgumentException("Chef with ID " + chefId + " not found.");
-    }
     public List<Chef> getAllChefs() {
         return chefs;
     }
+
+    public void sendAlertToChef(int chefId, String message) {
+        for (Chef chef : chefs) {
+            if (chef.getChefId() == chefId) {
+                chef.addSubstitutionAlert(message);
+                System.out.println("Alert to Chef " + chef.getChefName() + "!: " + message);
+                return;
+            }
+        }
+        System.out.println("Chef with ID " + chefId + " not found.");
+    }
+    public String viewCustomerOrderHistory(int chefId, int customerId) {
+        try {
+            Customer customer = customerManager.getCustomerById(customerId);
+            String history = customer.getFormattedOrderHistory();
+            return history.isEmpty() ? "No orders found" : history;
+        } catch (Exception e) {
+            return "Customer not found";
+        }
+    }
+
+
 }

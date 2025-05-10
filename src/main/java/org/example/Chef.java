@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chef {
-    int chefId;
-    String chefName;
-    String password;
+    private final int chefId;
+    private final String chefName;
+    private  String password;
     List<String> expertise;
     Integer assignedTasks;
     List<String> notifications;
+    private List<String> substitutionAlerts = new ArrayList<>();
 
     public Chef(int chefId, String chefName,String password) {
           this.chefId=chefId;
@@ -19,8 +20,7 @@ public class Chef {
           assignedTasks=0;
           notifications=new ArrayList<String>();
     }
-    public Chef() {
-    }
+
     public int getChefId() {
     return chefId;
     }
@@ -51,12 +51,12 @@ public class Chef {
         return notifications;
     }
 
-    public boolean hasNotification(String message) {
-        return notifications.contains(message);
+    public void addSubstitutionAlert(String alert) {
+        substitutionAlerts.add(alert);
     }
 
-    public boolean hasNoNotifications() {
-        return notifications.isEmpty();
+    public List<String> getSubstitutionAlerts() {
+        return substitutionAlerts;
     }
 
 }
