@@ -66,29 +66,5 @@ public class KitchenManager {
         }
         return false;
     }
-    public void autoOrderLowStockIngredients() {
-        List<String> lowStockIngredients = inventoryManager.getRestockSuggestions();
-        for (String ingredient : lowStockIngredients) {
-            String bestSupplier = supplierManager.getBestSupplier(ingredient);
-            double bestPrice = supplierManager.getBestPrice(ingredient);
-            if (bestSupplier != null) {
-                generatePurchaseOrder(ingredient, bestSupplier, bestPrice);
-                notifyKitchenManager(ingredient, bestSupplier, bestPrice);
-            }
-        }
-    }
-    public void fetchPricesForIngredient(String ingredientName) {
-        if (supplierManager == null) {
-            System.out.println("SupplierManager not available.");
-            return;
-        }
-        var prices = supplierManager.getPricesForIngredient(ingredientName);
-        if (prices.isEmpty()) {
-            System.out.println("No prices found for: " + ingredientName);
-        } else {
-            System.out.println("Prices for " + ingredientName + ":");
-            prices.forEach((supplier, price) ->
-                    System.out.println("- " + supplier + ": $" + price));
-        }
-    }
+
 }
