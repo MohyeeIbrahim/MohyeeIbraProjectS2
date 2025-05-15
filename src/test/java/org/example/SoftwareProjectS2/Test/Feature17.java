@@ -135,10 +135,11 @@ public void the_administrator_enters_invalid_month_and_year(Integer invalidMonth
     try {
             report = reportService.generateReport(invalidMonth, invalidYear);
             fail("Should have thrown IllegalArgumentException");
-        } catch (IllegalArgumentException _) {
-
+        } catch (IllegalArgumentException e) {
+e.getStackTrace();
         }
 }
+
 @Then("the system should display an error message")
 public void the_system_should_display_an_error_message() {
             assertTrue(true);
