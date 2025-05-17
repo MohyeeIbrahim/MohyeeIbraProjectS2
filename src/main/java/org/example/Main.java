@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static CustomerManager customerManager = new CustomerManager();
+    /*private static CustomerManager customerManager = new CustomerManager();
     private static ChefManager chefManager = new ChefManager(customerManager);
     private static InventoryManager inventoryManager = new InventoryManager();
     private static SupplierManager supplierManager = new SupplierManager();
@@ -16,10 +16,10 @@ public class Main {
     private static CustomMealService customMealService = new CustomMealService();
     private static SubstitutionService substitutionService = new SubstitutionService();
     private static SystemAdministrator admin = new SystemAdministrator(customerManager);
-    private static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);*/
 
     public static void main(String[] args) {
-        initializeSampleData();
+        /*initializeSampleData();
 
         boolean exit = false;
         while (!exit) {
@@ -372,6 +372,6 @@ public class Main {
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
-        }
+        }*/
     }
 }
