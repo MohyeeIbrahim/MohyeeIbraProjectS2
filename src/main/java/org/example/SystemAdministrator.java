@@ -13,7 +13,7 @@ import java.util.Locale;
 public class SystemAdministrator {
     private CustomerManager customerManager;
     private static final String REPORTS_DIR = "financial_reports";
-    private FinancialReportService reportService;
+    FinancialReportService reportService;
 
     public SystemAdministrator(CustomerManager customerManager) {
         this.customerManager = customerManager;
