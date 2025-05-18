@@ -59,7 +59,7 @@ public class FinancialReportService {
         }
 
         random.setSeed((long) (month + 1) * year);
-        double expenses = 5000 + random.nextDouble() * 20000;
+        double expenses = 500 + random.nextDouble() * 200;
 
         return new Report(
                 roundToTwoDecimals(revenue),

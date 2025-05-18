@@ -16,6 +16,10 @@ public class KitchenManager {
     public KitchenManager(InventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
     }
+    public KitchenManager(InventoryManager inventoryManager, SupplierManager supplierManager) {
+        this.inventoryManager = inventoryManager;
+        this.supplierManager = supplierManager;
+    }
     public void assignTask(String taskType) {
         List<Chef> chefs = chefManager.getAllChefs();
         Chef suitableChef = null;
@@ -65,6 +69,33 @@ public class KitchenManager {
             }
         }
         return false;
+    }
+    public void fetchPricesForIngredient(String ingredientName) {
+
+        Map<String, Double> prices = supplierManager.getPricesForIngredient(ingredientName);
+
+        if (prices == null || prices.isEmpty()) {
+            System.out.println("No prices found for: " + ingredientName);
+            return;
+        }
+
+        System.out.println("Prices for " + ingredientName + ":");
+        for (Map.Entry<String, Double> entry : prices.entrySet()) {
+            String supplier = entry.getKey();
+            Double price = entry.getValue();
+            System.out.printf("- %s: $%.2f%n", supplier, price);
+        }
+    }
+    public void autoOrderLowStockIngredients() {
+        List<String> lowStockIngredients = inventoryManager.getRestockSuggestions();
+        for (String ingredient : lowStockIngredients) {
+            String bestSupplier = supplierManager.getBestSupplier(ingredient);
+            double bestPrice = supplierManager.getBestPrice(ingredient);
+            if (bestSupplier != null) {
+                generatePurchaseOrder(ingredient, bestSupplier, bestPrice);
+                notifyKitchenManager(ingredient, bestSupplier, bestPrice);
+            }
+        }
     }
 
 }

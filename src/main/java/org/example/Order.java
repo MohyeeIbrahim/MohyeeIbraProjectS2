@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Order {
-    private  int orderId;
+    int orderId;
     private  LocalDate date;
     private  List<Meal> meals;
 

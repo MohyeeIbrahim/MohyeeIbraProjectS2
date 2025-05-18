@@ -5,6 +5,9 @@ import io.cucumber.java.en.*;
 import org.example.KitchenManager;
 import org.example.SupplierManager;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -13,11 +16,13 @@ public class Feature14 {
     private SupplierManager supplierManager;
     private KitchenManager kitchenManager;
     private Map<String, Double> latestPrices;
-
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
     @Before
     public void setUp() {
         supplierManager = new SupplierManager();
         kitchenManager = new KitchenManager(supplierManager);
+        System.setOut(new PrintStream(outContent));
     }
 
     // 1st Scenario
@@ -80,4 +85,52 @@ public class Feature14 {
         assertEquals(3, latestPrices.size());
         assertEquals(0.85, latestPrices.entrySet().iterator().next().getValue(), 0.001);
     }
+    //4th scenario
+
+    @Given("the supplier manager is initialized")
+    public void the_supplier_manager_is_initialized() {
+        assertNotNull(supplierManager);
+
+    }
+
+    @Given("the following prices exist for {string}:")
+    public void the_following_prices_exist_for(String ingredient, io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> prices = dataTable.asMaps();
+        for (Map<String, String> row : prices) {
+            supplierManager.addOrUpdatePrice(
+                    ingredient,
+                    row.get("Supplier"),
+                    Double.parseDouble(row.get("Price"))
+            );
+        }
+    }
+
+    @When("the kitchen manager fetches prices for {string}")
+    public void the_kitchen_manager_fetches_prices_for(String ingredient) {
+        kitchenManager.fetchPricesForIngredient(ingredient);
+    }
+
+    @Then("the system should print prices for {string} in the format:")
+    public void the_system_should_print_prices_for_in_the_format(String ingredient, String docString) {
+        String actualOutput = outContent.toString().trim();
+        String expectedOutput = docString.trim();
+
+        // Verify the output contains each expected line
+        String[] expectedLines = expectedOutput.split("\n");
+        for (String line : expectedLines) {
+            assertTrue("Expected output to contain: " + line,
+                    actualOutput.contains(line.trim()));
+        }
+    }
+    //5th scenario
+
+    @Then("the system should print {string}")
+    public void the_system_should_print(String expectedMessage) {
+        String actualOutput = outContent.toString().trim();
+        assertTrue("Expected message not found in output. Actual output: " + actualOutput,
+                actualOutput.contains(expectedMessage));
+    }
+
+
+
 }
