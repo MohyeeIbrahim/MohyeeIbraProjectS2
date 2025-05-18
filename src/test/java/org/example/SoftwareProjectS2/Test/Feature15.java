@@ -6,6 +6,9 @@ import org.example.InventoryManager;
 import org.example.KitchenManager;
 import org.example.SupplierManager;
 
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class Feature15 {
@@ -19,7 +22,7 @@ public class Feature15 {
     public void setUp(){
         inventoryManager = new InventoryManager();
         supplierManager = new SupplierManager();
-        kitchenManager = new KitchenManager(supplierManager);
+        kitchenManager= new KitchenManager(inventoryManager,supplierManager);
     }
     //1st scenario
     @Given("the current stock of {string} is below the critical threshold")
@@ -89,6 +92,43 @@ public class Feature15 {
         assertEquals("SupplierB", selectedSupplier);
         assertEquals(1.90,
                 selectedPrice,0.001);
+    }
+    //3rd new scenario
+    @Given("the stock of {string} is  low")
+    public void the_stock_of_is_low(String ingredient) {
+        inventoryManager.addIngredient(ingredient, 3, 5);
+        assertTrue(inventoryManager.isLowStock(ingredient));
+        lastOrderedIngredient = ingredient;
+    }
+    @Given("the following suppliers are available:")
+    public void the_following_suppliers_are_available(io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> suppliers = dataTable.asMaps();
+        for (Map<String, String> row : suppliers) {
+            supplierManager.addOrUpdatePrice(
+                    lastOrderedIngredient,
+                    row.get("Supplier"),
+                    Double.parseDouble(row.get("Price"))
+            );
+        }
+    }
+    @When("the system generates automatic order")
+    public void the_system_generates_automatic_order() {
+
+        kitchenManager.autoOrderLowStockIngredients();
+        selectedSupplier = supplierManager.getBestSupplier(lastOrderedIngredient);
+        selectedPrice = supplierManager.getBestPrice(lastOrderedIngredient);
+    }
+    @Then("it should select {string} \\(cheapest at ${double})")
+    public void it_should_select_cheapest_at_$(String expectedSupplier, Double expectedPrice) {
+        assertEquals(expectedSupplier, selectedSupplier);
+        assertEquals(expectedPrice, selectedPrice, 0.001);
+
+    }
+    @Then("update inventory after delivery")
+    public void update_inventory_after_delivery() {
+        int initialStock = inventoryManager.getIngredientQuantity(lastOrderedIngredient);
+        inventoryManager.restockIngredient(lastOrderedIngredient, 10);
+        assertEquals(initialStock + 10, inventoryManager.getIngredientQuantity(lastOrderedIngredient));
     }
 
 

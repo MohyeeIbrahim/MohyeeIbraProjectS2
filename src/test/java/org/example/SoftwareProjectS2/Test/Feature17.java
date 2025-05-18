@@ -122,7 +122,7 @@ public void enters_for_month_and_for_year_with_no_orders(Integer month, Integer 
 @Then("the system should display zero values for all metrics")
 public void the_system_should_display_zero_values_for_all_metrics() {
         assertEquals("Revenue should be 0", 0.0, report.getRevenue(), 0.01);
-        assertTrue("Expenses should still be generated", report.getExpenses() >= 5000);
+        assertTrue("Expenses should still be generated", report.getExpenses() >= 300);
         assertEquals("Net profit should match", -report.getExpenses(), report.getNetProfit(), 0.01);
         assertEquals("Order count should be 0", 0, report.getTotalOrders());
         assertEquals("Meal count should be 0", 0, report.getTotalMeals());

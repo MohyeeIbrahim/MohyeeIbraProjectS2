@@ -17,3 +17,24 @@ Feature:As a kitchen manager,
     When they apply the "Sort by Price: Low to High" filter
     Then the system should sort the list of ingredients based on current real-time prices
 
+  Scenario: System displays formatted prices for available ingredient
+    Given the supplier manager is initialized
+    And the following prices exist for "Flour":
+      | Supplier   | Price |
+      | LocalFarm  | 2.50  |
+      | MegaMart   | 2.30  |
+    When the kitchen manager fetches prices for "Flour"
+    Then the system should print prices for "Flour" in the format:
+      """
+      Prices for Flour:
+      - LocalFarm: $2.50
+      - MegaMart: $2.30
+      """
+
+  Scenario: System handles missing ingredient prices
+    Given the supplier manager is initialized
+    When the kitchen manager fetches prices for "Truffles"
+    Then the system should print "No prices found for: Truffles"
+
+
+

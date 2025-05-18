@@ -17,3 +17,13 @@ And multiple suppliers offer different real-time prices
 When the system generates an automatic order
 Then it should select the supplier with the lowest available price
 
+  Scenario: System chooses supplier with best price for auto-order
+    Given the stock of "Flour" is  low
+    And the following suppliers are available:
+      | Supplier    | Price |
+      | LocalFarm   | 2.50  |
+      | MegaMart    | 3.00  |
+    When the system generates automatic order
+    Then it should select "LocalFarm" (cheapest at $2.50)
+    And update inventory after delivery
+
