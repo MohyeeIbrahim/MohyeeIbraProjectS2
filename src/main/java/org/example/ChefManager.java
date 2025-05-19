@@ -1,12 +1,17 @@
 package org.example;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ChefManager {
     private List<Chef> chefs;
     private CustomerManager customerManager;
+    private static final Logger logger = LoggerFactory.getLogger(ChefManager.class);
+
 
 
     public ChefManager() {
-        chefs = new ArrayList<Chef>();
+        chefs = new ArrayList<>();
     }
     public ChefManager(CustomerManager customerManager) {
         this();
@@ -26,13 +31,13 @@ public class ChefManager {
         for (Chef chef : chefs) {
             if (chef.getChefId() == chefId) {
                 chef.addSubstitutionAlert(message);
-                System.out.println("Alert to Chef " + chef.getChefName() + "!: " + message);
+                logger.warn("Alert to Chef {}!: {}", chef.getChefName(), message);
                 return;
             }
         }
-        System.out.println("Chef with ID " + chefId + " not found.");
+        logger.warn("Chef with ID {} not found", chefId);
     }
-    public String viewCustomerOrderHistory(int chefId, int customerId) {
+    public String viewCustomerOrderHistory(int customerId) {
         try {
             Customer customer = customerManager.getCustomerById(customerId);
             String history = customer.getFormattedOrderHistory();

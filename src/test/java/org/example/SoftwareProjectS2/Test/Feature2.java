@@ -57,6 +57,19 @@ public class Feature2 {
        assertEquals(expectedString,customer.getDietaryPreference());
     }
 
+    //3rd new scenario
+    @Given("customer ID {int} isn't in the system")
+    public void customer_id_isn_t_in_the_system(Integer customerId) {
+        assertNull(customerManager.getCustomerById(customerId));
+    }
+    @When("the chef requests preferences for customer {int}")
+    public void the_chef_requests_preferences_for_customer(Integer customerId) {
+        customer = customerManager.getCustomerById(customerId);
+    }
+    @Then("the customer should be null")
+    public void the_customer_should_be_null() {
+        assertNull(customer);
+    }
 
 
 }

@@ -12,3 +12,8 @@ Feature:As a chef,
     When the chef enter view_preferences
     Then the display "No dietary preferences available for this customer"
 
+  Scenario: Viewing preferences for non-existent customer
+    Given customer ID 999 isn't in the system
+    When the chef requests preferences for customer 999
+    Then the customer should be null
+
