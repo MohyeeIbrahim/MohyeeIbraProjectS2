@@ -61,5 +61,35 @@ public class Feature9 {
         List<String> expected = Arrays.asList("olive oil", "salt");
         assertEquals(expected, updatedIngredients);
     }
+    //3rd scenario
+    private int initialAlertCount;
+    @Given("no chef with ID {int} exists")
+    public void no_chef_with_id_exists(Integer chefId) {
+        int nonExistentChefId = chefId;
+        this.initialAlertCount = chefManager.getAllChefs().stream()
+                .mapToInt(chef -> chef.getSubstitutionAlerts().size())
+                .sum();
+    }
+
+    @When("the system sends an alert {string} to chef ID {int}")
+    public void the_system_sends_an_alert_to_chef_id(String alertMessage, Integer chefId) {
+        chefManager.sendAlertToChef(chefId, alertMessage);
+    }
+
+    @Then("the system should log: {string}")
+    public void the_system_should_log(String expectedLogMessage) {
+
+    }
+
+    @Then("no alerts should be added to any chef")
+    public void no_alerts_should_be_added_to_any_chef() {
+        int finalAlertCount = chefManager.getAllChefs().stream()
+                .mapToInt(chef -> chef.getSubstitutionAlerts().size())
+                .sum();
+        assertEquals("No new alerts should have been added",
+                initialAlertCount,
+                finalAlertCount);
+    }
+
 
 }
