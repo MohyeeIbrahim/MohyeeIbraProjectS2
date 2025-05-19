@@ -24,10 +24,9 @@ public class KitchenManager {
         List<Chef> chefs = chefManager.getAllChefs();
         Chef suitableChef = null;
         for (Chef chef : chefs) {
-            if (chef.hasExpertise(taskType)) {
-                if (suitableChef == null || chef.getTaskCount() < suitableChef.getTaskCount()) {
-                    suitableChef = chef;
-                }
+            if (chef.hasExpertise(taskType) &&
+                    (suitableChef == null || chef.getTaskCount() < suitableChef.getTaskCount())) {
+                suitableChef = chef;
             }
         }
         if (suitableChef != null) {

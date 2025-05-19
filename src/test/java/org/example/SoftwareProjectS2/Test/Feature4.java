@@ -18,6 +18,7 @@ public class Feature4 {
     private String displayedOrders;
     private String Result;
     Customer customer;
+    private Exception caughtException;
 
     @Before
     public void setup() {
@@ -41,7 +42,7 @@ public class Feature4 {
 
     @When("chef enters view_order_history for customerId {int}")
     public void chef_enters_view_order_history_for_customer_id(Integer customerId) {
-        displayedOrders = chefManager.viewCustomerOrderHistory(chef.getChefId(), customerId);
+        displayedOrders = chefManager.viewCustomerOrderHistory(customerId);
     }
 
     @Then("the system should display the list of past meal orders for customerId {int}")
@@ -66,11 +67,31 @@ public class Feature4 {
 
     @When("the chef enters view_order_history for customerId {int}")
     public void the_chef_enters_view_order_history_for_cutomer_id(Integer customerId) {
-        Result = chefManager.viewCustomerOrderHistory(chef.getChefId(), customerId);
+        Result = chefManager.viewCustomerOrderHistory(customerId);
     }
 
     @Then("the system display {string}")
     public void the_system_display(String expected) {
         assertEquals(expected, Result);
     }
+    //3rd new scenario
+
+    @Given("customer ID {int} is not registered in the system")
+    public void customer_id_is_not_registered_in_the_system(Integer customerId) {
+        assertNull(customerManager.getCustomerById(customerId));
+    }
+    @When("the chef requests order history for customer {int}")
+    public void the_chef_requests_order_history_for_customer(Integer customerId) {
+        try {
+            Result = chefManager.viewCustomerOrderHistory(customerId);
+        } catch (Exception e) {
+            caughtException = e;
+        }
+    }
+    @Then("system display {string}")
+    public void system_display(String expectedMessage) {
+        assertEquals(expectedMessage, Result);
+        assertNull(caughtException);
+    }
+
 }

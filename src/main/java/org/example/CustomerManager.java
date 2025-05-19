@@ -9,7 +9,7 @@ public class CustomerManager {
     public  List<Customer> customer;
     private Customer currentCustomer;
     public CustomerManager(){
-        customer=new ArrayList<Customer>();
+        customer=new ArrayList<>();
     }
 
     public void addCustomer(Customer currentCustomer) {

@@ -13,3 +13,7 @@ Feature:
     When the chef enters view_order_history for customerId 200
     Then the system display "No past orders found"
 
+  Scenario: Customer does not exist
+    Given customer ID 999 is not registered in the system
+    When the chef requests order history for customer 999
+    Then system display "Customer not found"

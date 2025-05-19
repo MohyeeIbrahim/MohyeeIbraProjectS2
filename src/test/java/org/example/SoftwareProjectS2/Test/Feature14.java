@@ -17,7 +17,6 @@ public class Feature14 {
     private KitchenManager kitchenManager;
     private Map<String, Double> latestPrices;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
     @Before
     public void setUp() {
         supplierManager = new SupplierManager();
@@ -115,7 +114,6 @@ public class Feature14 {
         String actualOutput = outContent.toString().trim();
         String expectedOutput = docString.trim();
 
-        // Verify the output contains each expected line
         String[] expectedLines = expectedOutput.split("\n");
         for (String line : expectedLines) {
             assertTrue("Expected output to contain: " + line,
