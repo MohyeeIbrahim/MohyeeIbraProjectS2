@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CustomMealService {
     private final IngredientValidator validator=new IngredientValidator();
-    private final List<CustomMealRequest> customMealRequests = new ArrayList<CustomMealRequest>();
+    private final List<CustomMealRequest> customMealRequests = new ArrayList<>();
     private int nextRequestId = 1;
 
     public String createCustomMealRequest(int customerId, List<String> ingredients) {
