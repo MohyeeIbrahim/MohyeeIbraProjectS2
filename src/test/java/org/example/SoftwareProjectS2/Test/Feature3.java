@@ -64,6 +64,7 @@ public class Feature3 {
 
     @When("customer select Reorder Meal from the main menu")
     public void customer_select_reorder_meal_from_the_main_menu() {
+            throw new UnsupportedOperationException("Reorder meal");
     }
 
     @When("customer enter the meal ID from his past orders")
@@ -74,12 +75,9 @@ public class Feature3 {
 
     @Then("the system should add the selected meal to his new order")
     public void the_system_should_add_the_selected_meal_to_his_new_order() {
-        // Verify meal was added to cart
         assertEquals(1, currentCart.getItemCount());
         assertEquals(2, currentCart.getItems().get(0).getId());
-        // Verify system response
         assertEquals("Added Sweet Potato Fries to your cart", systemResponse);
-        // Verify meal exists in history
         assertTrue(customer.findMealInHistory(1).isPresent());
     }
     //3rd scenario

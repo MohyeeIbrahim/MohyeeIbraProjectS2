@@ -2,7 +2,6 @@ package org.example;
 
 import java.time.LocalDate;
 import java.time.Year;
-import java.util.List;
 import java.util.Random;
 
 public class FinancialReportService {
