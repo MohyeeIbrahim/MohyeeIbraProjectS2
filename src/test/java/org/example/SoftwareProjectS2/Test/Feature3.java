@@ -64,7 +64,6 @@ public class Feature3 {
 
     @When("customer select Reorder Meal from the main menu")
     public void customer_select_reorder_meal_from_the_main_menu() {
-            throw new UnsupportedOperationException("Reorder meal");
     }
 
     @When("customer enter the meal ID from his past orders")
