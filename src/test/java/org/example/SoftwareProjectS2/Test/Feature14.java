@@ -2,6 +2,7 @@ package org.example.SoftwareProjectS2.Test;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
+import org.example.InventoryManager;
 import org.example.KitchenManager;
 import org.example.SupplierManager;
 
@@ -15,13 +16,15 @@ import static org.junit.Assert.*;
 public class Feature14 {
     private SupplierManager supplierManager;
     private KitchenManager kitchenManager;
+    private InventoryManager inv;
     private Map<String, Double> latestPrices;
     private ByteArrayOutputStream outContent;
     private PrintStream originalOut;
     @Before
     public void setUp() {
+        inv=new InventoryManager();
         supplierManager = new SupplierManager();
-        kitchenManager = new KitchenManager(supplierManager);
+        kitchenManager = new KitchenManager(inv,supplierManager);
         originalOut = System.out;
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));  }
