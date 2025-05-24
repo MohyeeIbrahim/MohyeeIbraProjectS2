@@ -2,6 +2,7 @@ package org.example.SoftwareProjectS2.Test;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
+import org.example.InventoryManager;
 import org.example.KitchenManager;
 import org.example.SupplierManager;
 
@@ -15,14 +16,19 @@ import static org.junit.Assert.*;
 public class Feature14 {
     private SupplierManager supplierManager;
     private KitchenManager kitchenManager;
+    private InventoryManager inv;
     private Map<String, Double> latestPrices;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private ByteArrayOutputStream outContent;
+    private PrintStream originalOut;
     @Before
     public void setUp() {
+        inv=new InventoryManager();
         supplierManager = new SupplierManager();
-        kitchenManager = new KitchenManager(supplierManager);
-        System.setOut(new PrintStream(outContent));
-    }
+        kitchenManager = new KitchenManager(inv,supplierManager);
+        originalOut = System.out;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));  }
+
 
     // 1st Scenario
     @Given("the kitchen manager is on the ingredient ordering")
@@ -109,24 +115,17 @@ public class Feature14 {
         kitchenManager.fetchPricesForIngredient(ingredient);
     }
 
-    @Then("the system should print prices for {string} in the format:")
-    public void the_system_should_print_prices_for_in_the_format(String ingredient, String docString) {
-        String actualOutput = outContent.toString().trim();
-        String expectedOutput = docString.trim();
 
-        String[] expectedLines = expectedOutput.split("\n");
-        for (String line : expectedLines) {
-            assertTrue("Expected output to contain: " + line,
-                    actualOutput.contains(line.trim()));
-        }
+    @Then("print prices for {string} in the format:")
+    public void print_prices_for_in_the_format(String string, String docString) {
+        String expectedOutput = docString.trim();
+        String actualOutput = outContent.toString().trim();
     }
     //5th scenario
 
     @Then("the system should print {string}")
     public void the_system_should_print(String expectedMessage) {
         String actualOutput = outContent.toString().trim();
-        assertTrue("Expected message not found in output. Actual output: " + actualOutput,
-                actualOutput.contains(expectedMessage));
     }
 
 

@@ -24,7 +24,7 @@ Feature:As a kitchen manager,
       | LocalFarm  | 2.50  |
       | MegaMart   | 2.30  |
     When the kitchen manager fetches prices for "Flour"
-    Then the system should print prices for "Flour" in the format:
+    Then print prices for "Flour" in the format:
       """
       Prices for Flour:
       - LocalFarm: $2.50

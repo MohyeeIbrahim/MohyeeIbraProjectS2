@@ -50,6 +50,10 @@ public class KitchenManager {
         return sortedMap;
     }
     private void generatePurchaseOrder(String ingredient, String supplier, double price) {
+        int threshold = inventoryManager.getThreshold(ingredient);
+        int currentStock = inventoryManager.getIngredientQuantity(ingredient);
+        int orderQuantity = threshold * 2 - currentStock;
+        inventoryManager.restockIngredient(ingredient, orderQuantity);
         System.out.println("Auto-order placed for: " + ingredient + " from " + supplier + " at $" + price);
     }
     private void notifyKitchenManager(String ingredient, String supplier, double price) {
@@ -79,20 +83,31 @@ public class KitchenManager {
         }
 
         System.out.println("Prices for " + ingredientName + ":");
-        for (Map.Entry<String, Double> entry : prices.entrySet()) {
+        List<Map.Entry<String, Double>> sortedEntries = new ArrayList<>(prices.entrySet());
+        sortedEntries.sort(Map.Entry.comparingByKey());
+
+        for (Map.Entry<String, Double> entry : sortedEntries) {
             String supplier = entry.getKey();
             Double price = entry.getValue();
             System.out.printf("- %s: $%.2f%n", supplier, price);
         }
+
     }
     public void autoOrderLowStockIngredients() {
-        List<String> lowStockIngredients = inventoryManager.getRestockSuggestions();
+        List<String> lowStockIngredients = inventoryManager.getLowStockIngredients();
+        if (lowStockIngredients.isEmpty()) {
+            System.out.println("All ingredients are sufficiently stocked");
+            return;
+        }
         for (String ingredient : lowStockIngredients) {
             String bestSupplier = supplierManager.getBestSupplier(ingredient);
             double bestPrice = supplierManager.getBestPrice(ingredient);
             if (bestSupplier != null) {
                 generatePurchaseOrder(ingredient, bestSupplier, bestPrice);
                 notifyKitchenManager(ingredient, bestSupplier, bestPrice);
+            }
+            else {
+                System.out.println("No supplier found for: " + ingredient);
             }
         }
     }

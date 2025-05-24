@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.example.*;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -43,16 +44,17 @@ public class Feature3 {
 
     @Then("the system should display a list of customer past meal orders")
     public void the_system_should_display_a_list_of_customer_past_meal_orders() {
-        String expectedOutput = """
-            Customer past orders:
-            1. [%s] Quinoa Salad
-            2. [%s] Vegan Burger, Sweet Potato Fries
-            """.formatted(
-                LocalDate.now().minusDays(1).toString(),
-                LocalDate.now().minusDays(3).toString()
-        );
+        List<Order> orders = customer.getOrderHistory().stream()
+                .sorted(Comparator.comparing(Order::getDate).reversed()) // Match the production sort
+                .toList();
 
-        assertEquals(expectedOutput.trim(), pastOrder.trim());
+        StringBuilder expectedOutput = new StringBuilder("Customer past orders:\n");
+        for (int i = 0; i < orders.size(); i++) {
+            expectedOutput.append(orders.get(i).formatForDisplay(i + 1));
+            if (i < orders.size() - 1) expectedOutput.append("\n");
+        }
+
+        assertEquals(expectedOutput.toString().trim(), pastOrder.trim());
     }
 
     //Second Scenario

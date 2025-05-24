@@ -46,4 +46,17 @@ public class InventoryManager {
         }
         return suggestions;
     }
+
+    public int getThreshold(String ingredient) {
+        return thresholds.get(ingredient);
+    }
+    public List<String> getLowStockIngredients() {
+        List<String> ingredients = new ArrayList<>();
+        for (String ingredient : stock.keySet()) {
+            if (isLowStock(ingredient)) {
+                ingredients.add(ingredient);
+            }
+        }
+        return ingredients;
+    }
 }

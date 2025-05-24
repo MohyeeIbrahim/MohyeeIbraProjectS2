@@ -16,6 +16,7 @@ public class Feature1 {
     public void setUp(){
         currentCustomer=new Customer(100,"mohyee","12345","Vegetarian","alllwlwl");;
         customerManager=new CustomerManager();
+        String name= currentCustomer.getName();
     }
 
     @Given("customer want to input his preferences and allergies")
