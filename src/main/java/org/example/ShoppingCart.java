@@ -4,18 +4,17 @@ import java.util.Collections;
 import java.util.List;
 public class ShoppingCart {
     private List<Meal> items = new ArrayList<Meal>();
-    public void addItem(Meal meal) {
+    public String addItem(Meal meal) {
         if (meal == null) {
-            System.out.println("Cannot add null meal");
-            return;
+            return "Cannot add null meal";
         }
-        if (meal.isAvailable()) {
-            items.add(meal);
-            System.out.println(meal.getName() + " added to cart");
-        } else {
-            System.out.println(meal.getName() + " is not available");
+        if (!meal.isAvailable()) {
+            return meal.getName() + " is not available";
         }
+        items.add(meal);
+        return meal.getName() + " added to cart";
     }
+
     public List<Meal> getItems() { return Collections.unmodifiableList(items); }
     public int getItemCount() { return items.size(); }
 

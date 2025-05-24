@@ -1,4 +1,5 @@
 package org.example.SoftwareProjectS2.Test;
+
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -6,8 +7,6 @@ import io.cucumber.java.en.When;
 import org.example.Meal;
 import org.example.ShoppingCart;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 
@@ -15,18 +14,12 @@ import static org.junit.Assert.*;
 
 public class Feature21Extra {
     private ShoppingCart cart;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-
+    private String responseMessage;
 
     @Before
     public void setUp() {
         cart = new ShoppingCart();
-        System.setOut(new PrintStream(outContent));
-    }
-
-    private String getConsoleOutput() {
-        return outContent.toString().trim();
+        responseMessage = "";
     }
 
     // Scenario 1:
@@ -38,7 +31,7 @@ public class Feature21Extra {
     @When("I add an available {string} with price {double}")
     public void i_add_an_available(String mealName, double price) {
         Meal meal = new Meal(1, mealName, price, true);
-        cart.addItem(meal);
+        responseMessage = cart.addItem(meal);
     }
 
     @Then("the cart should contain:")
@@ -56,28 +49,30 @@ public class Feature21Extra {
 
     @Then("the response should be {string}")
     public void the_response_should_be(String expectedMessage) {
-        assertEquals(expectedMessage, getConsoleOutput());
+        assertEquals(expectedMessage, responseMessage);
     }
 
     // Scenario 2: Add unavailable meal
     @When("I add an unavailable {string} with price {double}")
     public void i_add_an_unavailable(String mealName, double price) {
         Meal meal = new Meal(2, mealName, price, false);
-        cart.addItem(meal);
+        responseMessage = cart.addItem(meal);
     }
+
     @Then("the cart should be empty")
     public void theCartShouldBeEmpty() {
         assertTrue(cart.isEmpty());
     }
+
     @Then("the response be {string}")
     public void the_response_be(String expectedMessage) {
-        assertEquals(expectedMessage, getConsoleOutput());
+        assertEquals(expectedMessage, responseMessage);
     }
 
     // Scenario 3: Add null meal
     @When("I add a null meal")
     public void i_add_a_null_meal() {
-        cart.addItem(null);
+        responseMessage = cart.addItem(null);
     }
 
     @Then("the cart be empty")
@@ -87,7 +82,7 @@ public class Feature21Extra {
 
     @Then("the response should {string}")
     public void the_response_should(String expectedMessage) {
-        assertEquals(expectedMessage, getConsoleOutput());
+        assertEquals(expectedMessage, responseMessage);
     }
 
     // Scenario 4: Clear cart
@@ -134,5 +129,4 @@ public class Feature21Extra {
     public void the_total_should_be_(double total) {
         assertEquals(total, cart.getTotal(), 0.001);
     }
-
 }
