@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
-    static Scanner scanner = new Scanner(System.in);
+  /* static Scanner scanner = new Scanner(System.in);
     static CustomerManager customerManager = new CustomerManager();
     static ChefManager chefManager = new ChefManager(customerManager);
     static InventoryManager inventoryManager = new InventoryManager();
@@ -15,10 +15,10 @@ public class Main {
     static SystemAdministrator admin = new SystemAdministrator(reportService);
     static SystemAdministrator admin2=new SystemAdministrator(customerManager);
     static CustomMealService customMealService = new CustomMealService();
-    static MealDeliveryReminderSystem reminderSystem = new MealDeliveryReminderSystem();
+    static MealDeliveryReminderSystem reminderSystem = new MealDeliveryReminderSystem();*/
 
     public static void main(String[] args) throws IOException {
-        Data();
+    /* Data();
 
         while (true) {
             System.out.println("\n--- Cook System ---");
@@ -425,4 +425,7 @@ public class Main {
     private static int generateOrderId() {
         return Math.abs((int) System.currentTimeMillis() % 1000000);
     }
+
+     */
+}
 }
