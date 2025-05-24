@@ -33,6 +33,7 @@ public class Feature16 {
     public void iHaveSuccessfullyPlacedAnOrder() {
         Meal meal1 = new Meal(1, "Vegan Burger", 9.99, true);
         Meal meal2 = new Meal(2, "Vegan Salad", 7.49, true);
+
         List<Meal> meals = Arrays.asList(meal1, meal2);
 
         currentOrder  = new Order(1001, LocalDate.now(), meals);

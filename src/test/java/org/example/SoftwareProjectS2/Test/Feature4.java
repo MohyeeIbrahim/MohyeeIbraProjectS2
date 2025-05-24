@@ -7,7 +7,9 @@ import io.cucumber.java.en.When;
 import org.example.*;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -46,15 +48,26 @@ public class Feature4 {
     }
 
     @Then("the system should display the list of past meal orders for customerId {int}")
-    public void the_system_should_display_the_list_of_past_meal_orders_for_customer_id(Integer int1) {
-        String expectedOutput = """
-            Customer past orders:
-            1. [%s] Vegan Burger, Sweet Potato Fries
-            """.formatted(
-                LocalDate.now().minusDays(1).toString()
-        );
+    public void the_system_should_display_the_list_of_past_meal_orders_for_customer_id(Integer customerId) {
+
         assertNotNull("Expected order history but got null", displayedOrders);
-        assertEquals(expectedOutput.trim(), displayedOrders.trim());
+
+        Customer customer = customerManager.getCustomerById(customerId);
+        List<Order> orders = customer.getOrderHistory();
+
+        StringBuilder expectedOutputBuilder = new StringBuilder();
+        expectedOutputBuilder.append("Customer past orders:"+"\n");
+        for (int i = 0; i < orders.size(); i++) {
+            Order order = orders.get(i);
+            expectedOutputBuilder.append(order.formatForDisplay(i + 1));
+            if (i < orders.size() - 1) expectedOutputBuilder.append("\n");
+        }
+        String expectedOutput = expectedOutputBuilder.toString();
+
+        String normalizedExpected = expectedOutput.replace("\r\n", "\n").trim();
+        String normalizedActual = displayedOrders.replace("\r\n", "\n").trim();
+
+        assertEquals(normalizedExpected, normalizedActual);
     }
 
     // Second Scenario

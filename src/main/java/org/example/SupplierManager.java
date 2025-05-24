@@ -8,6 +8,7 @@ public class SupplierManager {
     public void addOrUpdatePrice(String ingredient, String supplier, double price) {
         supplierPrices.putIfAbsent(ingredient, new HashMap<>());
         supplierPrices.get(ingredient).put(supplier, price);
+
     }
     public Map<String, Double> getPricesForIngredient(String ingredient) {
         return supplierPrices.getOrDefault(ingredient, new HashMap<>());

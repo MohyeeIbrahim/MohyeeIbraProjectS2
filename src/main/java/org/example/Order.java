@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Order {
-    int orderId;
+    public int orderId;
     private  LocalDate date;
     private  List<Meal> meals;
 
@@ -20,13 +20,12 @@ public class Order {
         return date;
     }
     public List<Meal> getMeals() {
-        return new ArrayList<Meal>(meals);
+        return new ArrayList<>(meals);
     }
 
     public String formatForDisplay(int orderNumber) {
         StringBuilder sb = new StringBuilder();
-        sb.append(orderNumber).append(". [").append(date).append("] ");
-
+        sb.append(orderNumber).append(". Order #").append(orderId).append(" [").append(date).append("] ");
         List<String> mealNames = new ArrayList<String>();
         for (Meal meal : meals) {
             mealNames.add(meal.getName());
